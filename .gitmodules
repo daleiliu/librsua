@@ -1,0 +1,6 @@
+[submodule "re"]
+	path = re
+	url = https://github.com/daleiliu/re
+[submodule "rem"]
+	path = rem
+	url = https://github.com/daleiliu/rem

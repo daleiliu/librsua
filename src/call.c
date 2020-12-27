@@ -1,17 +1,33 @@
 /**
- * @file src/call.c  Call Control
+ * @file call.c  Call Control
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
+
+#include "call.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
-
+#include "acct.h"
+#include "audio.h"
+#include "cmd.h"
+#include "custom_hdrs.h"
+#include "menc.h"
+#include "mnat.h"
+#include "mctrl.h"
+#include "rtpstat.h"
+#include "stream.h"
+#include "ept.h"
+#include "ev.h"
+#include "log.h"
+#include "sdp.h"
+#include "vidcodec.h"
+#include "video.h"
+#include "vidisp.h"
+#include "vidsrc.h"
 
 /** Magic number */
 #define MAGIC 0xca11ca11
@@ -685,7 +701,7 @@ int call_alloc(struct call **callp, const struct config *cfg, struct list *lst,
 		goto out;
 
 	err = sdp_session_set_lattr(call->sdp, true,
-				    "tool", "baresip " BARESIP_VERSION);
+				    "tool", "rsua " RSUA_VERSION);
 	if (err)
 		goto out;
 
@@ -738,8 +754,8 @@ int call_alloc(struct call **callp, const struct config *cfg, struct list *lst,
 	   video source or video display */
 	use_video = (vidmode != VIDMODE_OFF)
 		&& (list_head(account_vidcodecl(call->acc)) != NULL)
-		&& (NULL != vidsrc_find(baresip_vidsrcl(), NULL)
-		    || NULL != vidisp_find(baresip_vidispl(), NULL));
+		&& (NULL != vidsrc_find(data_vidsrcl(), NULL)
+		    || NULL != vidisp_find(data_vidispl(), NULL));
 
 	debug("call: use_video=%d\n", use_video);
 
@@ -752,7 +768,7 @@ int call_alloc(struct call **callp, const struct config *cfg, struct list *lst,
 				  acc->menc, call->mencs,
 				  "main",
 				  account_vidcodecl(call->acc),
-				  baresip_vidfiltl(), !got_offer,
+				  data_vidfiltl(), !got_offer,
 				  video_error_handler, call);
 		if (err)
 			goto out;
@@ -2316,7 +2332,7 @@ int call_set_media_direction(struct call *call, enum sdp_dir a, enum sdp_dir v)
 	stream_set_ldir(audio_strm(call_audio(call)), a);
 
 	if (video_strm(call_video(call))) {
-		if (vidisp_find(baresip_vidispl(), NULL) == NULL)
+		if (vidisp_find(data_vidispl(), NULL) == NULL)
 			stream_set_ldir(video_strm(
 				call_video(call)), v & SDP_SENDONLY);
 		else

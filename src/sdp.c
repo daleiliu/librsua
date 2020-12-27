@@ -1,12 +1,12 @@
 /**
- * @file src/sdp.c  SDP functions
+ * @file sdp.c  SDP functions
  *
  * Copyright (C) 2011 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
+
+#include "sdp.h"
 #include <stdlib.h>
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
 
 
 /**

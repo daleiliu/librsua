@@ -2,12 +2,13 @@
  * @file auframe.c  Audio frame
  *
  * Copyright (C) 2010 - 2020 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
+#include "auframe.h"
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-rem/rem.h"
+#include "log.h"
 
 
 /**

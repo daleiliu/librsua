@@ -1,11 +1,13 @@
 /**
- * @file src/module.c Module loading
+ * @file module.c Module loading
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+
+#include "module.h"
+#include "data.h"
+#include "log.h"
 
 
 /*

@@ -1,11 +1,11 @@
 /**
 * @file src/custom_hdrs.c  Custom headers control
-*
-* Copyright (C) 2010 Creytiv.com
+ *
+ * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
 */
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+
+#include "custom_hdrs.h"
 
 
 static void hdr_destructor(void *arg)

@@ -2,11 +2,20 @@
  * @file ui.c  User Interface
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
+
+#include "ui.h"
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+#include "cmd.h"
+#include "data.h"
+#include "log.h"
+
+
+struct ui_sub {
+	struct list uil;        /**< List of UIs (struct ui) */
+	struct cmd_ctx *uictx;  /**< Command context         */
+};
 
 
 static int stdout_handler(const char *p, size_t size, void *arg)
@@ -19,6 +28,40 @@ static int stdout_handler(const char *p, size_t size, void *arg)
 	return 0;
 }
 
+
+static void uis_destructor(void *data)
+{
+	struct ui_sub *uis = data;
+
+	list_flush(&uis->uil);
+}
+
+
+/**
+ * Initialize the UI subsystem.
+ *
+ * @param uisp  Pointer to allocated UIs
+ *
+ * @return 0 if success, otherwise errorcode
+ */
+int ui_init(struct ui_sub **uisp)
+{
+	struct ui_sub *uis;
+
+	if (!uisp)
+		return EINVAL;
+
+	uis = mem_zalloc(sizeof(*uis), uis_destructor);
+	if (!uis)
+		return ENOMEM;
+
+	list_init(&uis->uil);
+
+	*uisp = uis;
+
+	return 0;
+}
+ 
 
 /**
  * Register a new User-Interface (UI) module
@@ -63,7 +106,7 @@ void ui_input_key(struct ui_sub *uis, char key, struct re_printf *pf)
 	if (!uis)
 		return;
 
-	(void)cmd_process(baresip_commands(), &uis->uictx, key, pf, NULL);
+	(void)cmd_process(data_commands(), &uis->uictx, key, pf, NULL);
 }
 
 
@@ -100,7 +143,7 @@ void ui_input_str(const char *str)
 int ui_input_pl(struct re_printf *pf, const struct pl *pl)
 {
 	struct cmd_ctx *ctx = NULL;
-	struct commands *commands = baresip_commands();
+	struct commands *commands = data_commands();
 	size_t i;
 	int err = 0;
 
@@ -141,7 +184,7 @@ int ui_input_long_command(struct re_printf *pf, const struct pl *pl)
 	else
 		offset = 0;
 
-	err = cmd_process_long(baresip_commands(),
+	err = cmd_process_long(data_commands(),
 			       pl->p + offset,
 			       pl->l - offset, pf, NULL);
 

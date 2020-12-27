@@ -1,13 +1,14 @@
 /**
- * @file src/cmd.c  Command Interface
+ * @file cmd.c  Command Interface
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
+
+#include "cmd.h"
 #include <ctype.h>
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+#include "log.h"
 
 
 enum {

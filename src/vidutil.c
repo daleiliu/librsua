@@ -2,13 +2,11 @@
  * @file vidutil.c  Video utility functions
  *
  * Copyright (C) 2017 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
-#include "core.h"
-
+#include "vidutil.h"
+#include "data.h"
 
 /**
  * Calculate the timestamp in seconds from the RTP timestamp.

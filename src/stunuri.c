@@ -2,12 +2,11 @@
  * @file stunuri.c URI Scheme for STUN/TURN Protocol
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
-
+#include "stunuri.h"
+#include "log.h"
 
 /*
   https://tools.ietf.org/html/rfc7064

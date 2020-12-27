@@ -1,12 +1,13 @@
 /**
- * @file src/net.c Networking code
+ * @file net.c Networking code
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
 
+#include "net.h"
+#include "data.h"
+#include "log.h"
 
 struct network {
 	struct config_net cfg;

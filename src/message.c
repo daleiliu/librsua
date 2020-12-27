@@ -1,11 +1,13 @@
 /**
- * @file src/message.c  SIP MESSAGE -- RFC 3428
+ * @file message.c  SIP MESSAGE -- RFC 3428
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+
+#include "message.h"
+#include "sipreq.h"
+#include "ept.h"
 
 
 struct message {

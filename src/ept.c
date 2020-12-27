@@ -1,14 +1,26 @@
 /**
- * @file src/ua.c  User-Agent
+ * @file ept.c  User-Agent
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <string.h>
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
-#include <ctype.h>
 
+#include "ept.h"
+#include <string.h>
+#include <ctype.h>
+#include "acct.h"
+#include "call.h"
+#include "cmd.h"
+#include "conf.h"
+#include "custom_hdrs.h"
+#include "data.h"
+#include "ev.h"
+#include "log.h"
+#include "menc.h"
+#include "mnat.h"
+#include "net.h"
+#include "reg.h"
+#include "sipreq.h"
 
 /** Magic number */
 #define MAGIC 0x0a0a0a0a
@@ -41,21 +53,21 @@ struct ua_xhdr_filter {
 static struct {
 	struct config_sip *cfg;        /**< SIP configuration               */
 	struct list ual;               /**< List of User-Agents (struct ua) */
-	struct sip *sip;               /**< SIP Stack                       */
-	struct sip_lsnr *lsnr;         /**< SIP Listener                    */
-	struct sipsess_sock *sock;     /**< SIP Session socket              */
-	struct sipevent_sock *evsock;  /**< SIP Event socket                */
+	struct sip *sip;               /**< re: SIP Stack                   */
+	struct sip_lsnr *lsnr;         /**< re: SIP Listener                */
+	struct sipsess_sock *sock;     /**< re: SIP Session socket          */
+	struct sipevent_sock *evsock;  /**< re: SIP Event socket            */
 	struct ua *ua_cur;             /**< Current User-Agent              */
 	bool use_udp;                  /**< Use UDP transport               */
 	bool use_tcp;                  /**< Use TCP transport               */
 	bool use_tls;                  /**< Use TLS transport               */
 	bool delayed_close;            /**< Module will close SIP stack     */
-	sip_msg_h *subh;               /**< Subscribe handler               */
+	sip_msg_h *subh;               /**< re: Subscribe handler           */
 	ua_exit_h *exith;              /**< UA Exit handler                 */
 	void *arg;                     /**< UA Exit handler argument        */
 	char *eprm;                    /**< Extra UA parameters             */
 #ifdef USE_TLS
-	struct tls *tls;               /**< TLS Context                     */
+	struct tls *tls;               /**< re: TLS Context                 */
 #endif
 } uag = {
 	NULL,
@@ -402,7 +414,7 @@ static void call_event_handler(struct call *call, enum call_event ev,
 
 	case CALL_EVENT_INCOMING:
 
-		if (contact_block_access(baresip_contacts(),
+		if (contact_block_access(data_contacts(),
 					 peeruri)) {
 
 			info("ua: blocked access: \"%s\"\n", peeruri);
@@ -547,7 +559,7 @@ int ua_call_alloc(struct call **callp, struct ua *ua,
 		  struct call *xcall, const char *local_uri,
 		  bool use_rtp)
 {
-	const struct network *net = baresip_network();
+	const struct network *net = data_network();
 	struct call_prm cprm;
 	int af;
 	int af_sdp;
@@ -580,7 +592,7 @@ int ua_call_alloc(struct call **callp, struct ua *ua,
 	cprm.af      = af;
 	cprm.use_rtp = use_rtp;
 
-	err = call_alloc(callp, conf_config(), &ua->calls,
+	err = call_alloc(callp, data_config(), &ua->calls,
 			 ua->acc->dispname,
 			 local_uri ? local_uri : ua->acc->aor,
 			 ua->acc, ua, &cprm,
@@ -1500,8 +1512,8 @@ static bool require_handler(const struct sip_hdr *hdr,
 /* Handle incoming calls */
 static void sipsess_conn_handler(const struct sip_msg *msg, void *arg)
 {
-	struct config *config = conf_config();
-	const struct network *net = baresip_network();
+	struct config *config = data_config();
+	const struct network *net = data_network();
 	const struct sip_hdr *hdr;
 	int af_sdp;
 	struct ua *ua;
@@ -1705,8 +1717,8 @@ static void sip_trace_handler(bool tx, enum sip_transp tp,
  */
 int ua_init(const char *software, bool udp, bool tcp, bool tls)
 {
-	struct config *cfg = conf_config();
-	struct network *net = baresip_network();
+	struct config *cfg = data_config();
+	struct network *net = data_network();
 	uint32_t bsize;
 	int err;
 
@@ -1854,7 +1866,7 @@ void uag_enable_sip_trace(bool enable)
  */
 int uag_reset_transp(bool reg, bool reinvite)
 {
-	struct network *net = baresip_network();
+	struct network *net = data_network();
 	struct le *le;
 	int err;
 

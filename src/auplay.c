@@ -2,11 +2,11 @@
  * @file auplay.c  Audio Player
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+#include "auplay.h"
+#include "log.h"
 
 
 static void destructor(void *arg)

@@ -2,9 +2,10 @@
  * @file mediadev.c  Media device
  *
  * Copyright (C) 2010 - 2018 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+
+#include "mediadev.h"
 
 
 static void destructor(void *data)

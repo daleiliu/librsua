@@ -2,10 +2,12 @@
  * @file sipreq.c  SIP Authenticated Request
  *
  * Copyright (C) 2011 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+
+#include "sipreq.h"
+#include "acct.h"
+#include "ept.h"
 
 
 /** SIP Authenticated Request */

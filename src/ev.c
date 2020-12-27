@@ -1,13 +1,16 @@
 /**
- * @file src/event.c  Baresip event handling
+ * @file ev.c  Event handling
  *
  * Copyright (C) 2017 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
-
+#include "ev.h"
+#include "audio.h"
+#include "call.h"
+#include "stream.h"
+#include "ept.h"
+#include "video.h"
 
 struct ua_eh {
 	struct le le;

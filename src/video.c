@@ -2,16 +2,22 @@
  * @file src/video.c  Video stream
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  *
  * \ref GenericVideoStream
  */
+
+#include "video.h"
 #include <string.h>
 #include <stdlib.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
-#include "core.h"
-
+#include "stream.h"
+#include "timestamp.h"
+#include "log.h"
+#include "vidcodec.h"
+#include "vidisp.h"
+#include "vidfilt.h"
+#include "vidsrc.h"
+#include "vidutil.h"
 
 /** Magic number */
 #define MAGIC 0x00070d10
@@ -901,7 +907,7 @@ int video_alloc(struct video **vp, struct list *streaml,
 	if (err)
 		goto out;
 
-	if (vidisp_find(baresip_vidispl(), NULL) == NULL)
+	if (vidisp_find(data_vidispl(), NULL) == NULL)
 		stream_set_ldir(v->strm, SDP_SENDONLY);
 
 	stream_set_srate(v->strm, VIDEO_SRATE, VIDEO_SRATE);
@@ -993,7 +999,7 @@ static int set_vidisp(struct vrx *vrx)
 
 	vrx->vidisp_prm.fullscreen = vrx->video->cfg.fullscreen;
 
-	vd = (struct vidisp *)vidisp_find(baresip_vidispl(),
+	vd = (struct vidisp *)vidisp_find(data_vidispl(),
 					  vrx->video->cfg.disp_mod);
 	if (!vd)
 		return ENOENT;
@@ -1112,11 +1118,11 @@ int video_start_source(struct video *v, struct media_ctx **ctx)
 
 	debug("video: start source\n");
 
-	if (vidsrc_find(baresip_vidsrcl(), NULL)) {
+	if (vidsrc_find(data_vidsrcl(), NULL)) {
 
 		struct vidsrc *vs;
 
-		vs = (struct vidsrc *)vidsrc_find(baresip_vidsrcl(),
+		vs = (struct vidsrc *)vidsrc_find(data_vidsrcl(),
 						  v->cfg.src_mod);
 		if (!vs) {
 			warning("video: source not found: %s\n",
@@ -1186,7 +1192,7 @@ int video_start_display(struct video *v, const char *peer)
 			return err;
 	}
 
-	if (vidisp_find(baresip_vidispl(), NULL)) {
+	if (vidisp_find(data_vidispl(), NULL)) {
 		err = set_vidisp(&v->vrx);
 		if (err) {
 			warning("video: could not set vidisp '%s': %m\n",
@@ -1570,7 +1576,7 @@ int video_print(struct re_printf *pf, const struct video *v)
  */
 int video_set_source(struct video *v, const char *name, const char *dev)
 {
-	struct vidsrc *vs = (struct vidsrc *)vidsrc_find(baresip_vidsrcl(),
+	struct vidsrc *vs = (struct vidsrc *)vidsrc_find(data_vidsrcl(),
 							 name);
 	struct vtx *vtx;
 

@@ -2,10 +2,11 @@
  * @file vidcodec.c Video Codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
+#include "vidcodec.h"
+#include "log.h"
 
 
 /**

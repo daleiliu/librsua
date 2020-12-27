@@ -1,12 +1,19 @@
 /**
- * @file src/account.c  User-Agent account
+ * @file acct.c  User-Agent account
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
+
+#include "acct.h"
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+#include "aucodec.h"
+#include "data.h"
+#include "menc.h"
+#include "mnat.h"
+#include "stunuri.h"
+#include "log.h"
+#include "vidcodec.h"
 
 
 enum {
@@ -209,7 +216,6 @@ static int csl_parse(struct pl *pl, char *str, size_t sz)
 
 static int audio_codecs_decode(struct account *acc, const struct pl *prm)
 {
-	struct list *aucodecl = baresip_aucodecl();
 	struct pl tmp;
 
 	if (!acc || !prm)
@@ -243,7 +249,7 @@ static int audio_codecs_decode(struct account *acc, const struct pl *prm)
 					ch = pl_u32(&pl_ch);
 			}
 
-			ac = (struct aucodec *)aucodec_find(aucodecl,
+			ac = (struct aucodec *)aucodec_find(data_aucodecl(),
 							    cname, srate, ch);
 			if (!ac) {
 				warning("account: audio codec not found:"
@@ -266,7 +272,6 @@ static int audio_codecs_decode(struct account *acc, const struct pl *prm)
 
 static int video_codecs_decode(struct account *acc, const struct pl *prm)
 {
-	struct list *vidcodecl = baresip_vidcodecl();
 	struct pl tmp;
 
 	if (!acc || !prm)
@@ -285,7 +290,7 @@ static int video_codecs_decode(struct account *acc, const struct pl *prm)
 		while (0 == csl_parse(&vcs, cname, sizeof(cname))) {
 			struct vidcodec *vc;
 
-			vc = (struct vidcodec *)vidcodec_find(vidcodecl,
+			vc = (struct vidcodec *)vidcodec_find(data_vidcodecl(),
 							      cname, NULL);
 			if (!vc) {
 				warning("account: video codec not found: %s\n",
@@ -448,7 +453,7 @@ int account_alloc(struct account **accp, const char *sipaddr)
 		goto out;
 
 	if (acc->mnatid) {
-		acc->mnat = mnat_find(baresip_mnatl(), acc->mnatid);
+		acc->mnat = mnat_find(data_mnatl(), acc->mnatid);
 		if (!acc->mnat) {
 			warning("account: medianat not found: '%s'\n",
 				acc->mnatid);
@@ -456,7 +461,7 @@ int account_alloc(struct account **accp, const char *sipaddr)
 	}
 
 	if (acc->mencid) {
-		acc->menc = menc_find(baresip_mencl(), acc->mencid);
+		acc->menc = menc_find(data_mencl(), acc->mencid);
 		if (!acc->menc) {
 			warning("account: mediaenc not found: '%s'\n",
 				acc->mencid);
@@ -713,7 +718,7 @@ int account_set_mediaenc(struct account *acc, const char *mencid)
 		return EINVAL;
 
 	if (mencid) {
-		menc = menc_find(baresip_mencl(), mencid);
+		menc = menc_find(data_mencl(), mencid);
 		if (!menc) {
 			warning("account: mediaenc not found: `%s'\n",
 				mencid);
@@ -749,7 +754,7 @@ int account_set_medianat(struct account *acc, const char *mnatid)
 		return EINVAL;
 
 	if (mnatid) {
-		mnat = mnat_find(baresip_mnatl(), mnatid);
+		mnat = mnat_find(data_mnatl(), mnatid);
 		if (!mnat) {
 			warning("account: medianat not found: `%s'\n",
 				mnatid);
@@ -944,7 +949,7 @@ int account_auth(const struct account *acc, char **username, char **password,
 struct list *account_aucodecl(const struct account *acc)
 {
 	return (acc && !list_isempty(&acc->aucodecl))
-		? (struct list *)&acc->aucodecl : baresip_aucodecl();
+		? (struct list *)&acc->aucodecl : data_aucodecl();
 }
 
 
@@ -958,7 +963,7 @@ struct list *account_aucodecl(const struct account *acc)
 struct list *account_vidcodecl(const struct account *acc)
 {
 	return (acc && !list_isempty(&acc->vidcodecl))
-		? (struct list *)&acc->vidcodecl : baresip_vidcodecl();
+		? (struct list *)&acc->vidcodecl : data_vidcodecl();
 }
 
 

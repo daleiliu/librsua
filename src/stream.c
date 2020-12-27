@@ -2,13 +2,17 @@
  * @file stream.c  Generic Media Stream
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
+
+#include "stream.h"
 #include <string.h>
 #include <time.h>
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
-
+#include "menc.h"
+#include "mnat.h"
+#include "rtpext.h"
+#include "log.h"
+#include "sdp.h"
 
 /** Magic number */
 #define MAGIC 0x00511ea3

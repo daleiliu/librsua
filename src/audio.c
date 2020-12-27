@@ -2,8 +2,11 @@
  * @file src/audio.c  Audio stream
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  * \ref GenericAudioStream
  */
+
+#include "audio.h"
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <string.h>
@@ -14,11 +17,21 @@
 #ifdef HAVE_PTHREAD
 #include <pthread.h>
 #endif
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
-#include "core.h"
-
+#include "rsua-rem/rem.h"
+#include "acct.h"
+#include "aucodec.h"
+#include "aufilt.h"
+#include "auframe.h"
+#include "aulevel.h"
+#include "ausrc.h"
+#include "auplay.h"
+#include "cmd.h"
+#include "data.h"
+#include "metric.h"
+#include "rtpext.h"
+#include "stream.h"
+#include "timestamp.h"
+#include "log.h"
 
 /** Magic number */
 #define MAGIC 0x000a0d10
@@ -1797,7 +1810,7 @@ static int start_source(struct autx *tx, struct audio *a, struct list *ausrcl)
  */
 int audio_start(struct audio *a)
 {
-	struct list *aufiltl = baresip_aufiltl();
+	struct list *aufiltl = data_aufiltl();
 	int err;
 
 	if (!a)
@@ -1813,8 +1826,8 @@ int audio_start(struct audio *a)
 			return err;
 	}
 
-	err  = start_player(&a->rx, a, baresip_auplayl());
-	err |= start_source(&a->tx, a, baresip_ausrcl());
+	err  = start_player(&a->rx, a, data_auplayl());
+	err |= start_source(&a->tx, a, data_ausrcl());
 	if (err)
 		return err;
 
@@ -2400,7 +2413,7 @@ int audio_set_source(struct audio *au, const char *mod, const char *device)
 
 	if (str_isset(mod)) {
 
-		err = ausrc_alloc(&tx->ausrc, baresip_ausrcl(),
+		err = ausrc_alloc(&tx->ausrc, data_ausrcl(),
 				  NULL, mod, &tx->ausrc_prm, device,
 				  ausrc_read_handler, ausrc_error_handler, au);
 		if (err) {
@@ -2439,7 +2452,7 @@ int audio_set_player(struct audio *a, const char *mod, const char *device)
 
 	if (str_isset(mod)) {
 
-		err = auplay_alloc(&rx->auplay, baresip_auplayl(),
+		err = auplay_alloc(&rx->auplay, data_auplayl(),
 				   mod, &rx->auplay_prm, device,
 				   rx->jbtype == JBUF_ADAPTIVE ?
 				   auplay_write_handler2 :

@@ -2,12 +2,12 @@
  * @file rtpext.c  RTP Header Extensions
  *
  * Copyright (C) 2017 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
+#include "rtpext.h"
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+#include "log.h"
 
 
 /*

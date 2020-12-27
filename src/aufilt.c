@@ -2,11 +2,11 @@
  * @file aufilt.c Audio Filter
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
 
+#include "aufilt.h"
+#include "log.h"
 
 /**
  * Register an Audio Filter

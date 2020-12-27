@@ -2,10 +2,12 @@
  * @file vidfilt.c Video Filter
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+
+#include "vidfilt.h"
+#include "log.h"
+#include "video.h"
 
 
 /**

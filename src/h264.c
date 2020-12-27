@@ -1,13 +1,13 @@
 /**
- * @file src/h264.c  H.264 video codec packetization (RFC 3984)
+ * @file h264.c  H.264 video codec packetization (RFC 3984)
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 
+#include "h264.h"
+#include <string.h>
+#include "vidcodec.h"
 
 int h264_fu_hdr_encode(const struct h264_fu *fu, struct mbuf *mb)
 {

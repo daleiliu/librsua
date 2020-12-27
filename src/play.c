@@ -1,14 +1,20 @@
 /**
- * @file src/play.c  Audio-file player
+ * @file play.c  Audio-file player
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
+
+#include "play.h"
 #include <stdlib.h>
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
-#include "core.h"
+#include "rsua-rem/rem.h"
+#include "auframe.h"
+#include "auplay.h"
+#include "ausrc.h"
+#include "data.h"
+#include "conf.h"
+#include "log.h"
 
 
 enum {PTIME = 40};
@@ -286,7 +292,7 @@ int play_tone(struct play **playp, struct player *player,
 	wprm.ptime      = PTIME;
 	wprm.fmt        = AUFMT_S16LE;
 
-	err = auplay_alloc(&play->auplay, baresip_auplayl(),
+	err = auplay_alloc(&play->auplay, data_auplayl(),
 			   play_mod, &wprm,
 			   play_dev, write_handler, play);
 	if (err)
@@ -380,7 +386,7 @@ static int start_auplay(struct play *play)
 	wprm.ptime = play->sprm.ptime;
 	wprm.fmt   = play->sprm.fmt;
 
-	err = auplay_alloc(&play->auplay, baresip_auplayl(),
+	err = auplay_alloc(&play->auplay, data_auplayl(),
 			   play->mod, &wprm,
 			   play->dev, aubuf_write_handler, play);
 	return err;
@@ -528,7 +534,7 @@ int play_file(struct play **playp, struct player *player,
 
 
 	if (!conf_get_str(conf_cur(), "file_ausrc", srcn, sizeof(srcn))) {
-		ausrc = ausrc_find(baresip_ausrcl(), srcn);
+		ausrc = ausrc_find(data_ausrcl(), srcn);
 		if (ausrc) {
 			err = play_file_ausrc(&play, ausrc,
 					      path, repeat,

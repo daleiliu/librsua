@@ -2,11 +2,11 @@
  * @file mnat.c Media NAT
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
-#include "core.h"
+#include "mnat.h"
+#include "log.h"
 
 
 /**

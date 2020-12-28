@@ -48,6 +48,8 @@ ifeq ($(V),)
 HIDE=@
 endif
 
+VERSION := $(shell cat $(RSUA_TOPDIR)/mk/version.txt)
+
 ifneq ($(RELEASE),)
 CFLAGS  += -DRELEASE
 OPT_SPEED=1
@@ -579,7 +581,7 @@ endif
 CCACHE	:= $(shell [ -e /usr/bin/ccache ] 2>/dev/null \
 	|| [ -e /opt/local/bin/ccache ] \
 	&& echo "ccache")
-CFLAGS  += -DVERSION=\"$(VERSION)\"
+CFLAGS  += -DRSUA_VERSION=\"$(VERSION)\"
 CFLAGS  += \
 	-DVER_MAJOR=$(VER_MAJOR) \
 	-DVER_MINOR=$(VER_MINOR) \

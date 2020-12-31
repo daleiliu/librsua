@@ -1,8 +1,9 @@
-#
-# re.mk - common make rules
-#
 # Copyright (C) 2010 Creytiv.com
-#
+# Copyright (C) 2020 Dalei Liu
+
+# Common Makefile helpers
+# based on re/mk/re.mk
+
 # Imported variables:
 #
 #   ARCH           Target architecture
@@ -41,8 +42,11 @@
 #   SH_LFLAGS      Linker flags for shared libraries
 #   USE_TLS        Defined if TLS is available
 #   USE_DTLS       Defined if DTLS is available
-#
 
+# Verbose and silent build modes
+ifeq ($(V),)
+HIDE=@
+endif
 
 ifneq ($(RELEASE),)
 CFLAGS  += -DRELEASE
@@ -609,12 +613,12 @@ CC	:= $(CCACHE) $(CC)
 CFLAGS	+= $(EXTRA_CFLAGS)
 LFLAGS	+= $(EXTRA_LFLAGS)
 
-BUILD   := build-$(ARCH)
+BUILD   := build/$(ARCH)
 
 
 default:	all
 
-.PHONY: distclean
+.PHONY: distclean clean realclean
 distclean:
 	@rm -rf build* *core*
 	@rm -f *stamp $(BIN)
@@ -624,6 +628,15 @@ distclean:
 	@rm -f `find . -name "*.previous"` `find . -name "*.gcov"`
 	@rm -f `find . -name "*.exe"` `find . -name "*.dll"`
 	@rm -f `find . -name "*.dylib"`
+
+$(BUILD):
+	@mkdir -p $(BUILD)
+
+clean:
+	@rm -rf $(BUILD)
+
+realclean:
+	@rm -rf build
 
 .PHONY: info
 info::

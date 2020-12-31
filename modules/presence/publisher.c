@@ -3,11 +3,11 @@
  *
  * Copyright (C) 2010 Creytiv.com
  * Copyright (C) 2014 Juha Heinanen
+ * Copyright (C) 2020 Dalei Liu
  */
 
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "presence.h"
 
 

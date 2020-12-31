@@ -2,9 +2,9 @@
  * @file subscriber.c Presence subscriber
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "presence.h"
 
 
@@ -319,7 +319,7 @@ static void contact_handler(struct contact *contact,
 
 int subscriber_init(void)
 {
-	struct contacts *contacts = baresip_contacts();
+	struct contacts *contacts = data_contacts();
 	struct le *le;
 	int err = 0;
 
@@ -348,7 +348,7 @@ int subscriber_init(void)
 
 void subscriber_close(void)
 {
-	contact_set_update_handler(baresip_contacts(), NULL, NULL);
+	contact_set_update_handler(data_contacts(), NULL, NULL);
 	list_flush(&presencel);
 }
 
@@ -360,7 +360,7 @@ void subscriber_close_all(void)
 	info("presence: subscriber: closing %u subs\n",
 	     list_count(&presencel));
 
-	contact_set_update_handler(baresip_contacts(), NULL, NULL);
+	contact_set_update_handler(data_contacts(), NULL, NULL);
 
 	le = presencel.head;
 	while (le) {

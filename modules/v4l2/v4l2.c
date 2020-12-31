@@ -2,6 +2,7 @@
  * @file v4l2.c  Video4Linux2 video-source
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
@@ -16,9 +17,6 @@
 #include <unistd.h>
 #undef __STRICT_ANSI__ /* needed for RHEL4 kernel 2.6.9 */
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #if defined (OPENBSD) || defined (NETBSD)
 #include <sys/videoio.h>
 #else
@@ -36,6 +34,7 @@
 #define v4l2_close close
 #endif
 
+#include "rsua-mod/modapi.h"
 
 /**
  * @defgroup v4l2 v4l2
@@ -559,7 +558,7 @@ static int v4l_init(void)
 {
 	int err;
 
-	err = vidsrc_register(&vidsrc, baresip_vidsrcl(),
+	err = vidsrc_register(&vidsrc, data_vidsrcl(),
 			       "v4l2", alloc, NULL);
 	if (err)
 		return err;

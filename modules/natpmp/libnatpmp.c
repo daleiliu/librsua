@@ -2,10 +2,10 @@
  * @file libnatpmp.c NAT-PMP Client library
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua_module.h"
 #include "libnatpmp.h"
 
 

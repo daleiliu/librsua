@@ -2,9 +2,9 @@
  * @file /srtp/sdes.c  SDP Security Descriptions for Media Streams (RFC 4568)
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "sdes.h"
 
 

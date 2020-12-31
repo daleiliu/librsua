@@ -2,12 +2,11 @@
  * @file opus/encode.c Opus Encode
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <opus/opus.h>
+#include "rsua-mod/modapi.h"
 #include "opus.h"
 
 

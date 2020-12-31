@@ -2,9 +2,9 @@
  * @file aubridge.c Audio bridge
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "aubridge.h"
 
 
@@ -40,9 +40,9 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	err  = ausrc_register(&ausrc, baresip_ausrcl(), "aubridge",
+	err  = ausrc_register(&ausrc, data_ausrcl(), "aubridge",
 			      aubridge_src_alloc);
-	err |= auplay_register(&auplay, baresip_auplayl(),
+	err |= auplay_register(&auplay, data_auplayl(),
 			       "aubridge", aubridge_play_alloc);
 
 	return err;

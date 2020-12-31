@@ -2,9 +2,9 @@
  * @file ice.c ICE Module
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -380,7 +380,7 @@ static bool if_handler(const char *ifname, const struct sa *sa, void *arg)
 	if (sa_is_loopback(sa) || sa_is_linklocal(sa))
 		return false;
 
-	if (!net_af_enabled(baresip_network(), sa_af(sa)))
+	if (!net_af_enabled(data_network(), sa_af(sa)))
 		return false;
 
 	lprio = 0;
@@ -963,7 +963,7 @@ static struct mnat mnat_ice = {
 
 static int module_init(void)
 {
-	mnat_register(baresip_mnatl(), &mnat_ice);
+	mnat_register(data_mnatl(), &mnat_ice);
 
 	return 0;
 }

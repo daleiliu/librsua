@@ -2,6 +2,7 @@
  * @file v4l2_codec.c  Video4Linux2 video-source and video-codec
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #include <unistd.h>
@@ -13,14 +14,12 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #if defined (OPENBSD) || defined (NETBSD)
 #include <sys/videoio.h>
 #else
 #include <linux/videodev2.h>
 #endif
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -592,8 +591,8 @@ static int module_init(void)
 {
 	info("v4l2_codec inited\n");
 
-	vidcodec_register(baresip_vidcodecl(), &h264);
-	return vidsrc_register(&vidsrc, baresip_vidsrcl(),
+	vidcodec_register(data_vidcodecl(), &h264);
+	return vidsrc_register(&vidsrc, data_vidsrcl(),
 			       "v4l2_codec", src_alloc, NULL);
 }
 

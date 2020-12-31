@@ -2,10 +2,9 @@
  * @file draw.c  Video draw functions
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "vidinfo.h"
 #include "xga_font_data.h"
 

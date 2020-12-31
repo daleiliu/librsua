@@ -2,11 +2,11 @@
  * @file opus_multistream/sdp.c Opus Multistream SDP Functions
  *
  * Copyright (C) 2019 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <opus/opus_multistream.h>
+#include "rsua-mod/modapi.h"
 #include "opus_multistream.h"
 
 

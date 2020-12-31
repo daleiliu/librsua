@@ -2,14 +2,13 @@
  * @file avcodec/encode.c  Video codecs using libavcodec -- encoder
  *
  * Copyright (C) 2010 - 2013 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <libavcodec/avcodec.h>
 #include <libavutil/mem.h>
 #include <libavutil/opt.h>
 #include <libavutil/pixdesc.h>
+#include "rsua-mod/modapi.h"
 #include "h26x.h"
 #include "avcodec.h"
 

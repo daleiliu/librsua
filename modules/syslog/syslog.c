@@ -2,11 +2,11 @@
  * @file syslog.c Syslog module
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
 #include <syslog.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -18,7 +18,7 @@
 
 #define DEBUG_MODULE ""
 #define DEBUG_LEVEL 0
-#include <re_dbg.h>
+#include "rsua-re/re_dbg.h"
 
 
 static const int lmap[] = { LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERR };
@@ -45,7 +45,7 @@ static void syslog_handler(int level, const char *p, size_t len, void *arg)
 
 static int module_init(void)
 {
-	openlog("baresip", LOG_NDELAY | LOG_PID, LOG_LOCAL0);
+	openlog("rsua", LOG_NDELAY | LOG_PID, LOG_LOCAL0);
 
 	dbg_init(DBG_INFO, DBG_NONE);
 	dbg_handler_set(syslog_handler, NULL);

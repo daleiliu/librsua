@@ -2,6 +2,7 @@
  * @file alsa_src.c  ALSA sound driver - recorder
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _POSIX_SOURCE 1
@@ -11,9 +12,7 @@
 #include <unistd.h>
 #include <alsa/asoundlib.h>
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "alsa.h"
 
 

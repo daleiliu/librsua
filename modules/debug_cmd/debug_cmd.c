@@ -2,14 +2,14 @@
  * @file debug_cmd.c  Debug commands
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <stdlib.h>
 #include <time.h>
 #ifdef USE_OPENSSL
 #include <openssl/crypto.h>
 #endif
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -27,7 +27,7 @@ static struct play *g_play;
 static int cmd_net_debug(struct re_printf *pf, void *unused)
 {
 	(void)unused;
-	return net_debug(pf, baresip_network());
+	return net_debug(pf, data_network());
 }
 
 
@@ -45,7 +45,7 @@ static int print_system_info(struct re_printf *pf, void *arg)
 	err |= re_hprintf(pf, " Machine:  %s/%s\n", sys_arch_get(),
 			  sys_os_get());
 	err |= re_hprintf(pf, " Version:  %s (libre v%s)\n",
-			  BARESIP_VERSION, sys_libre_version_get());
+			  RSUA_VERSION, sys_libre_version_get());
 	err |= re_hprintf(pf, " Build:    %H\n", sys_build_get, NULL);
 	err |= re_hprintf(pf, " Kernel:   %H\n", sys_kernel_get, NULL);
 	err |= re_hprintf(pf, " Uptime:   %H\n", fmt_human_time, &uptime);
@@ -72,7 +72,7 @@ static int print_system_info(struct re_printf *pf, void *arg)
 static int cmd_config_print(struct re_printf *pf, void *unused)
 {
 	(void)unused;
-	return config_print(pf, conf_config());
+	return config_print(pf, data_config());
 }
 
 
@@ -134,7 +134,7 @@ static int cmd_play_file(struct re_printf *pf, void *arg)
 	const char *filename = carg->prm;
 	int err = 0;
 
-	cfg = conf_config();
+	cfg = data_config();
 
 	/* Stop the current tone, if any */
 	g_play = mem_deref(g_play);
@@ -146,7 +146,7 @@ static int cmd_play_file(struct re_printf *pf, void *arg)
 		if (err)
 			return err;
 
-		err = play_file(&g_play, baresip_player(), filename, 0,
+		err = play_file(&g_play, data_player(), filename, 0,
                         cfg->audio.alert_mod, cfg->audio.alert_dev);
 		if (err)
 		{
@@ -208,7 +208,7 @@ static int cmd_log_level(struct re_printf *pf, void *unused)
 
 static int print_uuid(struct re_printf *pf, void *arg)
 {
-	struct config *cfg = conf_config();
+	struct config *cfg = data_config();
 	(void)arg;
 
 	if (cfg)
@@ -242,7 +242,7 @@ static int module_init(void)
 	start_ticks = tmr_jiffies();
 	(void)time(&start_time);
 
-	err = cmd_register(baresip_commands(),
+	err = cmd_register(data_commands(),
 			   debugcmdv, ARRAY_SIZE(debugcmdv));
 
 	return err;
@@ -251,7 +251,7 @@ static int module_init(void)
 
 static int module_close(void)
 {
-	cmd_unregister(baresip_commands(), debugcmdv);
+	cmd_unregister(data_commands(), debugcmdv);
 
 	g_play = mem_deref(g_play);
 	return 0;

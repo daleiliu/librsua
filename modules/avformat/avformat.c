@@ -2,18 +2,17 @@
  * @file avformat.c  libavformat media-source
  *
  * Copyright (C) 2010 - 2020 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <unistd.h>
 #include <string.h>
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
 #include <libavdevice/avdevice.h>
+#include "rsua-mod/modapi.h"
 #include "mod_avformat.h"
 
 
@@ -374,10 +373,10 @@ static int module_init(void)
 
 	avdevice_register_all();
 
-	err  = ausrc_register(&ausrc, baresip_ausrcl(),
+	err  = ausrc_register(&ausrc, data_ausrcl(),
 			      "avformat", avformat_audio_alloc);
 
-	err |= vidsrc_register(&mod_avf, baresip_vidsrcl(),
+	err |= vidsrc_register(&mod_avf, data_vidsrcl(),
 			       "avformat", avformat_video_alloc, NULL);
 
 	return err;

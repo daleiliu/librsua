@@ -2,10 +2,10 @@
  * @file ctrl_tcp.c  TCP control interface using JSON payload
  *
  * Copyright (C) 2018 46 Labs LLC
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 #include "tcp_netstring.h"
 
@@ -201,7 +201,7 @@ static bool command_handler(struct mbuf *mb, void *arg)
 	resp->pos = NETSTRING_HEADER_SIZE;
 
 	/* Relay message to long commands */
-	err = cmd_process_long(baresip_commands(),
+	err = cmd_process_long(data_commands(),
 			       buf,
 			       str_len(buf),
 			       &pf, NULL);

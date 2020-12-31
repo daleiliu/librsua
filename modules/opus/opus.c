@@ -2,11 +2,11 @@
  * @file opus.c Opus Audio Codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <opus/opus.h>
+#include "rsua-mod/modapi.h"
 #include "opus.h"
 
 
@@ -199,7 +199,7 @@ static int module_init(void)
 
 	debug("opus: fmtp=\"%s\"\n", fmtp);
 
-	aucodec_register(baresip_aucodecl(), &opus);
+	aucodec_register(data_aucodecl(), &opus);
 
 	return 0;
 }

@@ -2,15 +2,15 @@
  * @file g722.c  G.722 audio codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <re.h>
-#include <rem_au.h>
-#include <baresip.h>
 #define SPANDSP_EXPOSE_INTERNAL_STRUCTURES 1
 #include <spandsp.h>
+#define UAMODAPI_FIX_SPANDSP		1
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -187,7 +187,7 @@ static struct aucodec g722 = {
 
 static int module_init(void)
 {
-	aucodec_register(baresip_aucodecl(), &g722);
+	aucodec_register(data_aucodecl(), &g722);
 	return 0;
 }
 

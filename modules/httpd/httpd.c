@@ -2,9 +2,9 @@
  * @file httpd.c Webserver UI module
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -52,7 +52,7 @@ static int html_print_head(struct re_printf *pf, void *unused)
 	return re_hprintf(pf,
 			  "<html>\n"
 			  "<head>\n"
-			  "<title>Baresip v" BARESIP_VERSION "</title>\n"
+			  "<title>rsua v" RSUA_VERSION "</title>\n"
 			  "</head>\n");
 }
 
@@ -199,7 +199,7 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	ui_register(baresip_uis(), &ui_http);
+	ui_register(data_uis(), &ui_http);
 
 	info("httpd: listening on %J\n", &laddr);
 

@@ -2,9 +2,9 @@
  * @file cons.c  Socket-based command-line console
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -67,7 +67,7 @@ static void udp_recv(const struct sa *src, struct mbuf *mb, void *arg)
 		if (ch == '\r')
 			ch = '\n';
 
-		ui_input_key(baresip_uis(), ch, &pf);
+		ui_input_key(data_uis(), ch, &pf);
 	}
 
 	if (mbr->end > 0) {
@@ -116,7 +116,7 @@ static void tcp_recv_handler(struct mbuf *mb, void *arg)
 		if (ch == '\r')
 			ch = '\n';
 
-		ui_input_key(baresip_uis(), ch, &pf);
+		ui_input_key(data_uis(), ch, &pf);
 	}
 }
 
@@ -247,7 +247,7 @@ static int cons_init(void)
 	if (err)
 		return err;
 
-	ui_register(baresip_uis(), &ui_cons);
+	ui_register(data_uis(), &ui_cons);
 
 	log_register_handler(&lg);
 

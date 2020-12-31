@@ -2,10 +2,10 @@
  * @file ebuacip.c  EBU ACIP (Audio Contribution over IP) Profile
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -29,7 +29,7 @@ static int set_ebuacip_params(struct audio *au)
 {
 	struct stream *strm = audio_strm(au);
 	struct sdp_media *sdp = stream_sdpmedia(strm);
-	struct config *cfg = conf_config();
+	struct config *cfg = data_config();
 	const struct config_avt *avt = &cfg->avt;
 	struct config_audio *audio = audio_config(au);
 	const struct list *lst;

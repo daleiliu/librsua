@@ -2,10 +2,10 @@
  * @file mwi.c Message Waiting Indication (RFC 3842)
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**

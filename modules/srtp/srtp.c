@@ -2,9 +2,9 @@
  * @file modules/srtp/srtp.c Secure Real-time Transport Protocol (RFC 3711)
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "sdes.h"
 
 
@@ -481,7 +481,7 @@ static struct menc menc_srtp_mandf = {
 
 static int mod_srtp_init(void)
 {
-	struct list *mencl = baresip_mencl();
+	struct list *mencl = data_mencl();
 
 	menc_register(mencl, &menc_srtp_opt);
 	menc_register(mencl, &menc_srtp_mand);

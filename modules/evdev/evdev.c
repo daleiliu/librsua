@@ -2,6 +2,7 @@
  * @file evdev.c Input event device UI module
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -9,8 +10,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <linux/input.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "print.h"
 
 
@@ -166,7 +166,7 @@ static void reportkey(struct ui_st *st, int ascii)
 	static struct re_printf pf_stderr = {stderr_handler, NULL};
 	(void)st;
 
-	ui_input_key(baresip_uis(), ascii, &pf_stderr);
+	ui_input_key(data_uis(), ascii, &pf_stderr);
 }
 
 
@@ -326,7 +326,7 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	ui_register(baresip_uis(), &ui_evdev);
+	ui_register(data_uis(), &ui_evdev);
 
 	return 0;
 }

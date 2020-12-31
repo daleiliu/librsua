@@ -2,6 +2,7 @@
  * @file x11grab.c X11 grabbing video-source
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
@@ -12,9 +13,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -200,7 +199,7 @@ static int alloc(struct vidsrc_st **stp, const struct vidsrc *vs,
 
 static int x11grab_init(void)
 {
-	return vidsrc_register(&vidsrc, baresip_vidsrcl(),
+	return vidsrc_register(&vidsrc, data_vidsrcl(),
 			       "x11grab", alloc, NULL);
 }
 

@@ -2,15 +2,15 @@
  * @file ausine.c sine Audio Source
  *
  * Copyright (C) 2020 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <stdlib.h>
 #include <math.h>
+#include "rsua-mod/modapi.h"
+
 #define SCALE (32767)
 
 
@@ -190,7 +190,7 @@ static int alloc_handler(struct ausrc_st **stp, const struct ausrc *as,
 
 static int module_init(void)
 {
-	return ausrc_register(&ausrc, baresip_ausrcl(),
+	return ausrc_register(&ausrc, data_ausrcl(),
 			      "ausine", alloc_handler);
 }
 

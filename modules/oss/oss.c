@@ -2,10 +2,8 @@
  * @file oss.c  Open Sound System (OSS) driver
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
@@ -21,6 +19,7 @@
 #ifdef SOLARIS
 #include <sys/filio.h>
 #endif
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -351,8 +350,8 @@ static int module_init(void)
 {
 	int err;
 
-	err  = ausrc_register(&ausrc, baresip_ausrcl(), "oss", src_alloc);
-	err |= auplay_register(&auplay, baresip_auplayl(), "oss", play_alloc);
+	err  = ausrc_register(&ausrc, data_ausrcl(), "oss", src_alloc);
+	err |= auplay_register(&auplay, data_auplayl(), "oss", play_alloc);
 
 	return err;
 }

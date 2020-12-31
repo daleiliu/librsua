@@ -2,10 +2,9 @@
  * @file vidbridge/src.c Video bridge -- source
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "vidbridge.h"
 
 

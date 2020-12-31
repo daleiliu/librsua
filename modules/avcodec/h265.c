@@ -2,12 +2,12 @@
  * @file h265.c H.265 Video Codec -- protocol format
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
 #include <libavcodec/avcodec.h>
+#include "rsua-mod/modapi.h"
 #include "h26x.h"
 #include "avcodec.h"
 

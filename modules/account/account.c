@@ -2,10 +2,9 @@
  * @file account/account.c  Load SIP accounts from file
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
-
+#include "rsua-mod/modapi.h"
 
 /**
  * @defgroup account account

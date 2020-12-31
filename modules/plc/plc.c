@@ -2,14 +2,14 @@
  * @file plc.c  PLC -- Packet Loss Concealment
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
 #define SPANDSP_EXPOSE_INTERNAL_STRUCTURES
 
 #include <spandsp.h>
-#include <re.h>
-#include <rem_au.h>
-#include <baresip.h>
+#define UAMODAPI_FIX_SPANDSP		1
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -113,7 +113,7 @@ static struct aufilt plc = {
 
 static int module_init(void)
 {
-	aufilt_register(baresip_aufiltl(), &plc);
+	aufilt_register(data_aufiltl(), &plc);
 
 	return 0;
 }

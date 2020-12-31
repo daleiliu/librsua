@@ -2,9 +2,9 @@
  * @file natpmp.c NAT-PMP Module for Media NAT-traversal
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua_module.h"
 #include "libnatpmp.h"
 
 
@@ -372,7 +372,7 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	mnat_register(baresip_mnatl(), &mnat_natpmp);
+	mnat_register(data_mnatl(), &mnat_natpmp);
 
 	return 0;
 }

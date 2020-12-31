@@ -2,13 +2,13 @@
  * @file stdio.c Standard Input/Output UI module
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -63,7 +63,7 @@ static void report_key(struct ui_st *ui, char key)
 	static struct re_printf pf_stderr = {print_handler, NULL};
 	(void)ui;
 
-	ui_input_key(baresip_uis(), key, &pf_stderr);
+	ui_input_key(data_uis(), key, &pf_stderr);
 }
 
 
@@ -170,7 +170,7 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	ui_register(baresip_uis(), &ui_stdio);
+	ui_register(data_uis(), &ui_stdio);
 
 	return 0;
 }

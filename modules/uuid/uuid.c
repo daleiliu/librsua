@@ -2,12 +2,12 @@
  * @file modules/uuid/uuid.c  Generate and load UUID
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -87,7 +87,7 @@ static int uuid_load(const char *file, char *uuid, size_t sz)
 
 static int module_init(void)
 {
-	struct config *cfg = conf_config();
+	struct config *cfg = data_config();
 	char path[256];
 	int err = 0;
 

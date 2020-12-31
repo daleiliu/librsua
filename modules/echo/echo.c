@@ -1,8 +1,7 @@
 /**
  * @file echo.c Echo module
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 /**
  *

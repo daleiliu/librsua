@@ -2,11 +2,11 @@
  * @file opus_multistream.c Opus Multistream Audio Codec
  *
  * Copyright (C) 2019 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <opus/opus_multistream.h>
+#include "rsua-mod/modapi.h"
 #include "opus_multistream.h"
 
 
@@ -189,7 +189,7 @@ static int module_init(void)
 
 	debug("opus_multistream: fmtp=\"%s\"\n", fmtp);
 
-	aucodec_register(baresip_aucodecl(), &opus_multistream);
+	aucodec_register(data_aucodecl(), &opus_multistream);
 
 	return 0;
 }

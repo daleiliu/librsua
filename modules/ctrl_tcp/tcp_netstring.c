@@ -2,17 +2,13 @@
  * @file tcp_netstring.c  TCP netstring framing
  *
  * Copyright (C) 2018 46 Labs LLC
+ * Copyright (C) 2020 Dalei Liu
  */
 
 #include <math.h>
 #include <string.h>
 
-#include <re_types.h>
-#include <re_fmt.h>
-#include <re_mem.h>
-#include <re_mbuf.h>
-#include <re_tcp.h>
-#include <re_net.h>
+#include "rsua-mod/modapi.h"
 
 #include "tcp_netstring.h"
 #include "netstring/netstring.h"
@@ -20,7 +16,7 @@
 
 #define DEBUG_MODULE "tcp_netstring"
 #define DEBUG_LEVEL 5
-#include <re_dbg.h>
+#include "rsua-re/re_dbg.h"
 
 
 struct netstring {

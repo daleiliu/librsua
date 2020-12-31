@@ -2,14 +2,13 @@
  * @file avcodec/decode.c  Video codecs using libavcodec -- decoder
  *
  * Copyright (C) 2010 - 2013 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <libavcodec/avcodec.h>
 #include <libavutil/avutil.h>
 #include <libavutil/mem.h>
 #include <libavutil/pixdesc.h>
+#include "rsua-mod/modapi.h"
 #include "h26x.h"
 #include "avcodec.h"
 

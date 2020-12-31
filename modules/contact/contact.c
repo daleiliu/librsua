@@ -2,10 +2,10 @@
  * @file modules/contact/contact.c  Contacts module
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -30,7 +30,7 @@ static int print_contacts(struct re_printf *pf, void *unused)
 {
 	(void)unused;
 
-	return contacts_print(pf, baresip_contacts());
+	return contacts_print(pf, data_contacts());
 }
 
 
@@ -87,7 +87,7 @@ static int cmd_dial_contact(struct re_printf *pf, void *arg)
 	int err = 0;
 	(void)arg;
 
-	cnt = contacts_current(baresip_contacts());
+	cnt = contacts_current(data_contacts());
 	if (!cnt) {
 		return re_hprintf(pf, "contact: current contact not set\n");
 	}
@@ -111,7 +111,7 @@ static int cmd_message(struct re_printf *pf, void *arg)
 	const char *uri;
 	int err = 0;
 
-	cnt = contacts_current(baresip_contacts());
+	cnt = contacts_current(data_contacts());
 	if (!cnt) {
 		return re_hprintf(pf, "contact: current contact not set\n");
 	}
@@ -184,7 +184,7 @@ static int load_current_contact(struct contacts *contacts, const char *path)
 
 static int cycle_current(struct re_printf *pf, bool next)
 {
-	struct contacts *contacts = baresip_contacts();
+	struct contacts *contacts = data_contacts();
 	struct contact *cnt;
 	struct le *le;
 	int err;
@@ -293,7 +293,7 @@ static int write_template(const char *file)
 
 static int module_init(void)
 {
-	struct contacts *contacts = baresip_contacts();
+	struct contacts *contacts = data_contacts();
 	char path[256] = "", file[256] = "";
 	int err;
 
@@ -317,7 +317,7 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	err = cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	err = cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 	if (err)
 		return err;
 
@@ -340,8 +340,8 @@ static int module_init(void)
 
 static int module_close(void)
 {
-	cmd_unregister(baresip_commands(), cmdv);
-	list_flush(contact_list(baresip_contacts()));
+	cmd_unregister(data_commands(), cmdv);
+	list_flush(contact_list(data_contacts()));
 
 	return 0;
 }

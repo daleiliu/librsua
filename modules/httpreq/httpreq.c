@@ -2,12 +2,12 @@
  * @file httpreq.c HTTP request module
  *
  * Copyright (C) 2020 Commend.com - c.spielberger@commend.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
 #include <stdlib.h>
 #include <string.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -466,7 +466,7 @@ static int module_init(void)
 	if (!d)
 		return ENOMEM;
 
-	d->cfg = &conf_config()->net;
+	d->cfg = &data_config()->net;
 
 #ifdef USE_TLS
 	if (!conf_get(conf_cur(), "httpreq_hostname", &pl)) {
@@ -506,7 +506,7 @@ static int module_init(void)
 	err |= conf_apply(conf_cur(), "httpreq_ca", ca_handler, d->client);
 #endif
 
-	err = cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	err = cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 	if (err) {
 		d->client = mem_deref(d->client);
 		d->conn = mem_deref(d->conn);
@@ -520,7 +520,7 @@ static int module_close(void)
 {
 	info("httpreq: module closed\n");
 
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 	d = mem_deref(d);
 
 	return 0;

@@ -2,14 +2,13 @@
  * @file vidloop.c  Video loop
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <string.h>
 #include <time.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -407,14 +406,14 @@ static int print_stats(struct re_printf *pf, const struct video_loop *vl)
 	}
 
 	/* Filters */
-	if (!list_isempty(baresip_vidfiltl())) {
+	if (!list_isempty(data_vidfiltl())) {
 		struct le *le;
 
 		err |= re_hprintf(pf,
 				  "* Filters (%u):",
-				  list_count(baresip_vidfiltl()));
+				  list_count(data_vidfiltl()));
 
-		for (le = list_head(baresip_vidfiltl()); le; le = le->next) {
+		for (le = list_head(data_vidfiltl()); le; le = le->next) {
 			struct vidfilt *vf = le->data;
 			err |= re_hprintf(pf, " %s", vf->name);
 		}
@@ -506,7 +505,7 @@ static void vidloop_destructor(void *arg)
 
 static int enable_codec(struct video_loop *vl, const char *name)
 {
-	struct list *vidcodecl = baresip_vidcodecl();
+	struct list *vidcodecl = data_vidcodecl();
 	struct videnc_param prm;
 	int err;
 
@@ -621,7 +620,7 @@ static int vsrc_reopen(struct video_loop *vl, const struct vidsz *sz)
 	vl->srcprm.fmt    = vl->cfg.enc_fmt;
 
 	vl->vsrc = mem_deref(vl->vsrc);
-	err = vidsrc_alloc(&vl->vsrc, baresip_vidsrcl(),
+	err = vidsrc_alloc(&vl->vsrc, data_vidsrcl(),
 			   vl->cfg.src_mod, NULL, &vl->srcprm, sz,
 			   NULL, vl->cfg.src_dev, vidsrc_frame_handler,
 			   NULL, vl);
@@ -638,7 +637,7 @@ static void update_vidsrc(void *arg)
 {
 	struct video_loop *vl = arg;
 	struct vidsz size;
-	struct config *cfg = conf_config();
+	struct config *cfg = data_config();
 	int err;
 
 	tmr_start(&vl->tmr_update_src, 100, update_vidsrc, vl);
@@ -666,7 +665,7 @@ static int video_loop_alloc(struct video_loop **vlp)
 	struct le *le;
 	int err = 0;
 
-	cfg = conf_config();
+	cfg = data_config();
 	if (!cfg)
 		return EINVAL;
 
@@ -690,7 +689,7 @@ static int video_loop_alloc(struct video_loop **vlp)
 	vl->frame = NULL;
 
 	/* Video filters */
-	for (le = list_head(baresip_vidfiltl()); le; le = le->next) {
+	for (le = list_head(data_vidfiltl()); le; le = le->next) {
 		struct vidfilt *vf = le->data;
 		struct vidfilt_prm prm;
 		void *ctx = NULL;
@@ -712,7 +711,7 @@ static int video_loop_alloc(struct video_loop **vlp)
 	info("vidloop: open video display (%s.%s)\n",
 	     vl->cfg.disp_mod, vl->cfg.disp_dev);
 
-	err = vidisp_alloc(&vl->vidisp, baresip_vidispl(),
+	err = vidisp_alloc(&vl->vidisp, data_vidispl(),
 			   vl->cfg.disp_mod, NULL,
 			   vl->cfg.disp_dev, NULL, vl);
 	if (err) {
@@ -744,7 +743,7 @@ static int vidloop_start(struct re_printf *pf, void *arg)
 {
 	const struct cmd_arg *carg = arg;
 	struct vidsz size;
-	struct config *cfg = conf_config();
+	struct config *cfg = data_config();
 	const char *codec_name = carg->prm;
 	int err = 0;
 
@@ -810,14 +809,14 @@ static const struct cmd cmdv[] = {
 
 static int module_init(void)
 {
-	return cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	return cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 }
 
 
 static int module_close(void)
 {
 	gvl = mem_deref(gvl);
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 	return 0;
 }
 

@@ -2,11 +2,11 @@
  * @file serreg.c  Serial registration mode
  *
  * Copyright (C) 2020 Commend.com - c.spielberger@commend.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <stdlib.h>
 #include <time.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -88,7 +88,7 @@ static bool check_registrations(void)
 		return false;
 
 	/* We are ready */
-	ui_output(baresip_uis(),
+	ui_output(data_uis(),
 		  "\x1b[32m%s serreg: %u useragent%s with prio %u "
 		  "registered successfully! \x1b[;m\n",
 		  n==1 ? "" : "All",

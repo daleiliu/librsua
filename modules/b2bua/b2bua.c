@@ -2,9 +2,9 @@
  * @file b2bua.c Back-to-Back User-Agent (B2BUA) module
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -207,7 +207,7 @@ static int module_init(void)
 		return ENOENT;
 	}
 
-	err = cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	err = cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 	if (err)
 		return err;
 
@@ -235,7 +235,7 @@ static int module_close(void)
 	}
 
 	uag_event_unregister(ua_event_handler);
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 
 	return 0;
 }

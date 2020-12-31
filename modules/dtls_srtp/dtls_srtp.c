@@ -2,11 +2,11 @@
  * @file dtls_srtp.c DTLS-SRTP media encryption
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <string.h>
+#include "rsua-mod/modapi.h"
 #include "dtls_srtp.h"
 
 
@@ -473,7 +473,7 @@ static struct menc dtls_srtp = {
 
 static int module_init(void)
 {
-	struct list *mencl = baresip_mencl();
+	struct list *mencl = data_mencl();
 	int err;
 
 	err = tls_alloc(&tls, TLS_METHOD_DTLSV1, NULL, NULL);
@@ -483,7 +483,7 @@ static int module_init(void)
 		return err;
 	}
 
-	err = tls_set_selfsigned_rsa(tls, "dtls@baresip", 2048);
+	err = tls_set_selfsigned_rsa(tls, "dtls@rsua", 2048);
 	if (err) {
 		warning("dtls_srtp: failed to self-sign certificate (%m)\n",
 			err);

@@ -2,9 +2,9 @@
  * @file call.c Static menu related functions
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 #include "menu.h"
 
@@ -60,7 +60,7 @@ static int about_box(struct re_printf *pf, void *unused)
 {
 	(void)unused;
 
-	return re_hprintf(pf, about_fmt, BARESIP_VERSION);
+	return re_hprintf(pf, about_fmt, RSUA_VERSION);
 }
 
 
@@ -190,7 +190,7 @@ static int switch_audio_player(struct re_printf *pf, void *arg)
 	pl_strcpy(&pl_driver, driver, sizeof(driver));
 	pl_strcpy(&pl_device, device, sizeof(device));
 
-	ap = auplay_find(baresip_auplayl(), driver);
+	ap = auplay_find(data_auplayl(), driver);
 	if (!ap) {
 		re_hprintf(pf, "no such audio-player: %s\n", driver);
 		return 0;
@@ -211,7 +211,7 @@ static int switch_audio_player(struct re_printf *pf, void *arg)
 	re_hprintf(pf, "switch audio player: %s,%s\n",
 		   driver, device);
 
-	cfg = conf_config();
+	cfg = data_config();
 	if (!cfg) {
 		return re_hprintf(pf, "no config object\n");
 	}
@@ -264,7 +264,7 @@ static int switch_audio_source(struct re_printf *pf, void *arg)
 	pl_strcpy(&pl_driver, driver, sizeof(driver));
 	pl_strcpy(&pl_device, device, sizeof(device));
 
-	as = ausrc_find(baresip_ausrcl(), driver);
+	as = ausrc_find(data_ausrcl(), driver);
 	if (!as) {
 		re_hprintf(pf, "no such audio-source: %s\n", driver);
 		return 0;
@@ -285,7 +285,7 @@ static int switch_audio_source(struct re_printf *pf, void *arg)
 	re_hprintf(pf, "switch audio device: %s,%s\n",
 		   driver, device);
 
-	cfg = conf_config();
+	cfg = data_config();
 	if (!cfg) {
 		return re_hprintf(pf, "no config object\n");
 	}
@@ -503,7 +503,7 @@ static int cmd_hangup(struct re_printf *pf, void *unused)
 static int print_commands(struct re_printf *pf, void *unused)
 {
 	(void)unused;
-	return cmd_print(pf, baresip_commands());
+	return cmd_print(pf, data_commands());
 }
 
 
@@ -719,7 +719,7 @@ static int switch_video_source(struct re_printf *pf, void *arg)
 	pl_strcpy(&pl_driver, driver, sizeof(driver));
 	pl_strcpy(&pl_device, device, sizeof(device));
 
-	vs = vidsrc_find(baresip_vidsrcl(), driver);
+	vs = vidsrc_find(data_vidsrcl(), driver);
 	if (!vs) {
 		re_hprintf(pf, "no such video-source: %s\n", driver);
 		return 0;
@@ -740,7 +740,7 @@ static int switch_video_source(struct re_printf *pf, void *arg)
 	re_hprintf(pf, "switch video device: %s,%s\n",
 		   driver, device);
 
-	cfg = conf_config();
+	cfg = data_config();
 	if (!cfg) {
 		return re_hprintf(pf, "no config object\n");
 	}
@@ -874,7 +874,7 @@ static const struct cmd dialcmdv[] = {
  */
 int static_menu_register(void)
 {
-	return cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	return cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 }
 
 
@@ -883,7 +883,7 @@ int static_menu_register(void)
  */
 void static_menu_unregister(void)
 {
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 }
 
 
@@ -894,10 +894,10 @@ void static_menu_unregister(void)
  */
 int dial_menu_register(void)
 {
-	struct commands *baresip_cmd = baresip_commands();
+	struct commands *data_cmd = data_commands();
 
-	if (!cmds_find(baresip_cmd, dialcmdv))
-		return cmd_register(baresip_cmd,
+	if (!cmds_find(data_cmd, dialcmdv))
+		return cmd_register(data_cmd,
 			dialcmdv, ARRAY_SIZE(dialcmdv));
 
 	return 0;
@@ -909,5 +909,5 @@ int dial_menu_register(void)
  */
 void dial_menu_unregister(void)
 {
-	cmd_unregister(baresip_commands(), dialcmdv);
+	cmd_unregister(data_commands(), dialcmdv);
 }

@@ -2,12 +2,11 @@
  * @file vumeter.c  VU-meter
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <string.h>
 #include <stdlib.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -225,7 +224,7 @@ static int module_init(void)
 
 	conf_get_bool(conf, "vumeter_stderr", &vumeter_stderr);
 
-	aufilt_register(baresip_aufiltl(), &vumeter);
+	aufilt_register(data_aufiltl(), &vumeter);
 
 	return 0;
 }

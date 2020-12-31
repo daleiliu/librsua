@@ -2,10 +2,10 @@
  * @file dynamic_menu.c  dynamic menu related functions
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <stdlib.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "menu.h"
 
 
@@ -269,10 +269,10 @@ static const struct cmd callcmdv[] = {
  */
 int dynamic_menu_register(void)
 {
-	struct commands *baresip_cmd = baresip_commands();
+	struct commands *data_cmd = data_commands();
 
-	if (!cmds_find(baresip_cmd, callcmdv))
-		return cmd_register(baresip_cmd,
+	if (!cmds_find(data_cmd, callcmdv))
+		return cmd_register(data_cmd,
 			callcmdv, ARRAY_SIZE(callcmdv));
 
 	return 0;
@@ -284,5 +284,5 @@ int dynamic_menu_register(void)
  */
 void dynamic_menu_unregister(void)
 {
-	cmd_unregister(baresip_commands(), callcmdv);
+	cmd_unregister(data_commands(), callcmdv);
 }

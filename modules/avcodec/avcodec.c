@@ -2,12 +2,11 @@
  * @file avcodec.c  Video codecs using libavcodec
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <libavutil/pixdesc.h>
 #include <libavcodec/avcodec.h>
+#include "rsua-mod/modapi.h"
 #include "h26x.h"
 #include "avcodec.h"
 
@@ -148,7 +147,7 @@ static struct vidcodec h265 = {
 
 static int module_init(void)
 {
-	struct list *vidcodecl = baresip_vidcodecl();
+	struct list *vidcodecl = data_vidcodecl();
 	char h264enc[64] = "libx264";
 	char h264dec[64] = "h264";
 	char h265enc[64] = "libx265";

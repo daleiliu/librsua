@@ -2,11 +2,10 @@
  * @file selfview.c  Selfview Video-Filter
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -169,7 +168,7 @@ static int encode_win(struct vidfilt_enc_st *st, struct vidframe *frame,
 
 	if (!enc->disp) {
 
-		err = vidisp_alloc(&enc->disp, baresip_vidispl(),
+		err = vidisp_alloc(&enc->disp, data_vidispl(),
 				   NULL, NULL, NULL, NULL, NULL);
 		if (err)
 			return err;
@@ -270,9 +269,9 @@ static int module_init(void)
 	(void)conf_get(conf_cur(), "video_selfview", &pl);
 
 	if (0 == pl_strcasecmp(&pl, "window"))
-		vidfilt_register(baresip_vidfiltl(), &selfview_win);
+		vidfilt_register(data_vidfiltl(), &selfview_win);
 	else if (0 == pl_strcasecmp(&pl, "pip"))
-		vidfilt_register(baresip_vidfiltl(), &selfview_pip);
+		vidfilt_register(data_vidfiltl(), &selfview_pip);
 
 	(void)conf_get_vidsz(conf_cur(), "selfview_size", &selfview_size);
 

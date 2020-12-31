@@ -2,16 +2,15 @@
  * @file avformat/audio.c  libavformat media-source -- audio
  *
  * Copyright (C) 2010 - 2020 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <pthread.h>
 #include <libavutil/opt.h>
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
 #include <libswresample/swresample.h>
+#include "rsua-mod/modapi.h"
 #include "mod_avformat.h"
 
 

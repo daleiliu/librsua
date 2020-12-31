@@ -2,14 +2,13 @@
  * @file fakevideo.c Fake video source and video display
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <unistd.h>
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -228,9 +227,9 @@ static int display(struct vidisp_st *st, const char *title,
 static int module_init(void)
 {
 	int err = 0;
-	err |= vidsrc_register(&vidsrc, baresip_vidsrcl(),
+	err |= vidsrc_register(&vidsrc, data_vidsrcl(),
 			       "fakevideo", src_alloc, NULL);
-	err |= vidisp_register(&vidisp, baresip_vidispl(),
+	err |= vidisp_register(&vidisp, data_vidispl(),
 			       "fakevideo", disp_alloc, NULL,
 			       display, NULL);
 	return err;

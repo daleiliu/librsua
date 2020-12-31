@@ -2,11 +2,10 @@
  * @file g711.c G.711 Audio Codec
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -147,8 +146,8 @@ static struct aucodec pcma = {
 
 static int module_init(void)
 {
-	aucodec_register(baresip_aucodecl(), &pcmu);
-	aucodec_register(baresip_aucodecl(), &pcma);
+	aucodec_register(data_aucodecl(), &pcmu);
+	aucodec_register(data_aucodecl(), &pcma);
 
 	return 0;
 }

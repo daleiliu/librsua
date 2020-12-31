@@ -2,13 +2,13 @@
  * @file g726.c G.726 Audio Codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <rem_au.h>
-#include <baresip.h>
 #define SPANDSP_EXPOSE_INTERNAL_STRUCTURES 1
 #include <spandsp.h>
+#define UAMODAPI_FIX_SPANDSP		1
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -218,7 +218,7 @@ static struct g726_aucodec g726[4] = {
 
 static int module_init(void)
 {
-	struct list *aucodecl = baresip_aucodecl();
+	struct list *aucodecl = data_aucodecl();
 	size_t i;
 
 	for (i=0; i<ARRAY_SIZE(g726); i++)

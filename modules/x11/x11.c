@@ -2,6 +2,7 @@
  * @file x11.c Video driver for X11
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
 #ifndef SOLARIS
@@ -12,9 +13,7 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <X11/extensions/XShm.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 /*
  * DO_REDIRECT has this program handle all of the window manager operations
@@ -429,7 +428,7 @@ static void hide(struct vidisp_st *st)
 
 static int module_init(void)
 {
-	return vidisp_register(&vid, baresip_vidispl(),
+	return vidisp_register(&vid, data_vidispl(),
 			       "x11", alloc, NULL, display, hide);
 }
 

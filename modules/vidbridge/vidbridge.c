@@ -2,10 +2,9 @@
  * @file vidbridge.c Video bridge
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "vidbridge.h"
 
 
@@ -43,13 +42,13 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	err = vidisp_register(&vidisp, baresip_vidispl(),
+	err = vidisp_register(&vidisp, data_vidispl(),
 			      "vidbridge", vidbridge_disp_alloc,
 			      NULL, vidbridge_disp_display, 0);
 	if (err)
 		return err;
 
-	err = vidsrc_register(&vidsrc, baresip_vidsrcl(),
+	err = vidsrc_register(&vidsrc, data_vidsrcl(),
 			      "vidbridge", vidbridge_src_alloc, NULL);
 	if (err)
 		return err;

@@ -56,12 +56,12 @@
  \endverbatim
  *
  * Copyright (C) 2020 commend.com - Christian Spielberger
+ * Copyright (C) 2020 Dalei Liu
  */
 
 #include <string.h>
 #include <stdint.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "baresipbus.h"
 
 
@@ -107,14 +107,14 @@ on_handle_invoke(DBusBaresip *interface,
 
 	if (len == 1) {
 		/* Relay message to key commands */
-		err = cmd_process(baresip_commands(),
+		err = cmd_process(data_commands(),
 					   NULL,
 					   command[0],
 					   &pf, NULL);
 	}
 	else {
 		/* Relay message to long commands */
-		err = cmd_process_long(baresip_commands(),
+		err = cmd_process_long(data_commands(),
 					   command,
 					   len,
 					   &pf, NULL);

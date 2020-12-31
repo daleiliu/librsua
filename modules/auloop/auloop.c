@@ -2,11 +2,10 @@
  * @file auloop.c  Audio loop
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -260,7 +259,7 @@ static int auloop_reset(struct audio_loop *al, uint32_t srate, uint8_t ch)
 {
 	struct auplay_prm auplay_prm;
 	struct ausrc_prm ausrc_prm;
-	const struct config *cfg = conf_config();
+	const struct config *cfg = data_config();
 	size_t min_sz, sampsz;
 	int err;
 
@@ -300,7 +299,7 @@ static int auloop_reset(struct audio_loop *al, uint32_t srate, uint8_t ch)
 	auplay_prm.ch         = al->ch;
 	auplay_prm.ptime      = PTIME;
 	auplay_prm.fmt        = al->fmt;
-	err = auplay_alloc(&al->auplay, baresip_auplayl(),
+	err = auplay_alloc(&al->auplay, data_auplayl(),
 			   cfg->audio.play_mod, &auplay_prm,
 			   cfg->audio.play_dev, write_handler, al);
 	if (err) {
@@ -315,7 +314,7 @@ static int auloop_reset(struct audio_loop *al, uint32_t srate, uint8_t ch)
 	ausrc_prm.ptime      = PTIME;
 	ausrc_prm.fmt        = al->fmt;
 
-	err = ausrc_alloc(&al->ausrc, baresip_ausrcl(),
+	err = ausrc_alloc(&al->ausrc, data_ausrcl(),
 			  NULL, cfg->audio.src_mod,
 			  &ausrc_prm, cfg->audio.src_dev,
 			  src_read_handler, error_handler, al);
@@ -417,14 +416,14 @@ static const struct cmd cmdv[] = {
 
 static int module_init(void)
 {
-	return cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	return cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 }
 
 
 static int module_close(void)
 {
 	auloop_stop(NULL, NULL);
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 	return 0;
 }
 

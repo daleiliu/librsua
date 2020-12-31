@@ -2,11 +2,11 @@
  * @file menu.c  Interactive menu
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 #include <stdlib.h>
 #include <time.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "menu.h"
 
 
@@ -49,7 +49,7 @@ static void alert_start(void *arg)
 	if (!menu.bell)
 		return;
 
-	ui_output(baresip_uis(), "\033[10;1000]\033[11;1000]\a");
+	ui_output(data_uis(), "\033[10;1000]\033[11;1000]\a");
 
 	tmr_start(&menu.tmr_alert, 1000, alert_start, NULL);
 }
@@ -61,7 +61,7 @@ static void alert_stop(void)
 		return;
 
 	if (tmr_isrunning(&menu.tmr_alert))
-		ui_output(baresip_uis(), "\r");
+		ui_output(data_uis(), "\r");
 
 	tmr_cancel(&menu.tmr_alert);
 }
@@ -79,7 +79,7 @@ static void tmrstat_handler(void *arg)
 
 	tmr_start(&menu.tmr_stat, 100, tmrstat_handler, 0);
 
-	if (ui_isediting(baresip_uis()))
+	if (ui_isediting(data_uis()))
 		return;
 
 	if (STATMODE_OFF != menu.statmode) {
@@ -131,8 +131,8 @@ static char *errorcode_key_aufile(uint16_t scode)
 
 static void menu_play(const char *ckey, const char *fname, int repeat)
 {
-	struct config *cfg = conf_config();
-	struct player *player = baresip_player();
+	struct config *cfg = data_config();
+	struct player *player = data_player();
 
 	struct pl pl = PL_INIT;
 	char *file = NULL;
@@ -274,7 +274,7 @@ static void check_registrations(void)
 	n = list_count(uag_list());
 
 	/* We are ready */
-	ui_output(baresip_uis(),
+	ui_output(data_uis(),
 		  "\x1b[32mAll %u useragent%s registered successfully!"
 		  " (%u ms)\x1b[;m\n",
 		  n, n==1 ? "" : "s",
@@ -507,12 +507,12 @@ static void message_handler(struct ua *ua, const struct pl *peer,
 	(void)ctype;
 	(void)arg;
 
-	cfg = conf_config();
+	cfg = data_config();
 
-	ui_output(baresip_uis(), "\r%r: \"%b\"\n",
+	ui_output(data_uis(), "\r%r: \"%b\"\n",
 		  peer, mbuf_buf(body), mbuf_get_left(body));
 
-	(void)play_file(NULL, baresip_player(), "message.wav", 0,
+	(void)play_file(NULL, data_player(), "message.wav", 0,
 	                cfg->audio.alert_mod, cfg->audio.alert_dev);
 }
 
@@ -590,7 +590,7 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	err = message_listen(baresip_message(),
+	err = message_listen(data_message(),
 			     message_handler, NULL);
 	if (err)
 		return err;
@@ -604,7 +604,7 @@ static int module_close(void)
 	debug("menu: close (redial current_attempts=%d)\n",
 	      menu.current_attempts);
 
-	message_unlisten(baresip_message(), message_handler);
+	message_unlisten(data_message(), message_handler);
 
 	uag_event_unregister(ua_event_handler);
 	static_menu_unregister();

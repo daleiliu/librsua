@@ -2,15 +2,14 @@
  * @file avformat/video.c  libavformat media-source -- video
  *
  * Copyright (C) 2010 - 2020 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <pthread.h>
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
 #include <libavutil/pixdesc.h>
+#include "rsua-mod/modapi.h"
 #include "mod_avformat.h"
 
 

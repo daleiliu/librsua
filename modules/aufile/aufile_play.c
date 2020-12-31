@@ -2,14 +2,13 @@
  * @file aufile.c WAV Audio Player
  *
  * Copyright (C) 2020 commend.com - Christian Spielberger
+ * Copyright (C) 2020 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <pthread.h>
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "aufile.h"
 
 

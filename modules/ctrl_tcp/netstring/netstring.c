@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
-#include <re.h>
+#include "rsua-mod/modapi.h"
 #include "netstring.h"
 
 

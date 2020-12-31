@@ -2,9 +2,9 @@
  * @file presence.c Presence module
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "presence.h"
 
 
@@ -87,7 +87,7 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	err = cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	err = cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 	if (err)
 		return err;
 
@@ -103,7 +103,7 @@ static int module_close(void)
 {
 	uag_event_unregister(event_handler);
 
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 
 	publisher_close();
 

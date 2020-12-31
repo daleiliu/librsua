@@ -2,10 +2,9 @@
  * @file l16.c  16-bit linear codec
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -89,7 +88,7 @@ static struct aucodec l16v[NR_CODECS] = {
 
 static int module_init(void)
 {
-	struct list *aucodecl = baresip_aucodecl();
+	struct list *aucodecl = data_aucodecl();
 	size_t i;
 
 	for (i=0; i<NR_CODECS; i++)

@@ -2,11 +2,11 @@
  * @file avcodec/sdp.c  Video codecs using libavcodec -- SDP functions
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2020 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <libavcodec/avcodec.h>
+#include "rsua-mod/modapi.h"
 #include "avcodec.h"
 
 

@@ -2,6 +2,7 @@
  * @file mod_avformat.h  libavformat media-source -- internal interface
  *
  * Copyright (C) 2010 - 2020 Creytiv.com
+ * Copyright (C) 2020 - 2021 Dalei Liu
  */
 
 
@@ -15,7 +16,7 @@ struct shared {
 	bool is_realtime;
 	bool run;
 
-	struct stream {
+	struct avf_strm {
 		AVRational time_base;
 		AVCodecContext *ctx;
 		int idx;

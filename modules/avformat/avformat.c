@@ -2,7 +2,7 @@
  * @file avformat.c  libavformat media-source
  *
  * Copyright (C) 2010 - 2020 Creytiv.com
- * Copyright (C) 2020 Dalei Liu
+ * Copyright (C) 2020 - 2021 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
@@ -151,7 +151,7 @@ static void *read_thread(void *data)
 }
 
 
-static int open_codec(struct stream *s, const struct AVStream *strm, int i,
+static int open_codec(struct avf_strm *s, const struct AVStream *strm, int i,
 		      AVCodecContext *ctx)
 {
 	AVCodec *codec;

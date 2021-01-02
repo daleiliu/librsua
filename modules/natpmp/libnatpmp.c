@@ -5,7 +5,7 @@
  * Copyright (C) 2020 Dalei Liu
  */
 #include <string.h>
-#include "rsua_module.h"
+#include "rsua-mod/modapi.h"
 #include "libnatpmp.h"
 
 

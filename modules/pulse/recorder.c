@@ -2,14 +2,13 @@
  * @file pulse/recorder.c  Pulseaudio sound driver - recorder
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <pulse/pulseaudio.h>
 #include <pulse/simple.h>
 #include <pthread.h>
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "pulse.h"
 
 

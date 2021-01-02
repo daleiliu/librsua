@@ -2,13 +2,12 @@
  * @file coreaudio/recorder.c  Apple Coreaudio sound driver - recorder
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <AudioToolbox/AudioQueue.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "coreaudio.h"
 
 

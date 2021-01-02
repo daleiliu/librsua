@@ -2,13 +2,13 @@
  * @file gtk/dial_dialog.c  GTK+ dial dialog
  *
  * Copyright (C) 2015 Charles E. Lehner
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <gtk/gtk.h>
+#include "rsua-mod/modapi.h"
 #include "gtk_mod.h"
 
 

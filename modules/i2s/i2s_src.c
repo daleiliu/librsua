@@ -2,6 +2,7 @@
  * @file i2s_src.c freeRTOS I2S audio driver module - recorder
  *
  * Copyright (C) 2019 cspiel.at
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <sys/types.h>
 #include <sys/time.h>
@@ -10,9 +11,7 @@
 #include <pthread.h>
 #include "freertos/FreeRTOS.h"
 #include "driver/i2s.h"
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "i2s.h"
 
 

@@ -2,13 +2,12 @@
  * @file opengl.m Video driver for OpenGL on MacOSX
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <Cocoa/Cocoa.h>
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -507,7 +506,7 @@ static int module_init(void)
 	if (!app)
 		return ENOSYS;
 
-	err = vidisp_register(&vid, baresip_vidispl(),
+	err = vidisp_register(&vid, data_vidispl(),
 			      "opengl", alloc, NULL, display, hide);
 	if (err)
 		return err;

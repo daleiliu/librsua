@@ -2,13 +2,12 @@
  * @file winwave/play.c Windows sound driver -- playback
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
 #include <windows.h>
 #include <mmsystem.h>
 #include <mmreg.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "winwave.h"
 
 

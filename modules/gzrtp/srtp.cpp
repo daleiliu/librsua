@@ -2,11 +2,9 @@
  * @file srtp.cpp  GNU ZRTP: SRTP processing
  *
  * Copyright (C) 2010 - 2017 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <stdint.h>
-
-#include <re.h>
-#include <baresip.h>
 
 #ifdef GZRTP_USE_RE_SRTP
 #include <string.h>
@@ -15,6 +13,8 @@
 #include <srtp/CryptoContextCtrl.h>
 #include <srtp/SrtpHandler.h>
 #endif
+
+#include "rsua-mod/modapi.h"
 
 #include "srtp.h"
 

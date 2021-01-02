@@ -2,11 +2,10 @@
  * @file snapshot.c  Snapshot Video-Filter
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "png_vf.h"
 #include <time.h>
 
@@ -140,15 +139,15 @@ static const struct cmd cmdv[] = {
 
 static int module_init(void)
 {
-	vidfilt_register(baresip_vidfiltl(), &snapshot);
-	return cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	vidfilt_register(data_vidfiltl(), &snapshot);
+	return cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 }
 
 
 static int module_close(void)
 {
 	vidfilt_unregister(&snapshot);
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 	return 0;
 }
 

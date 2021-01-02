@@ -2,10 +2,9 @@
  * @file opensles/player.c  OpenSLES audio driver -- playback
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include <SLES/OpenSLES.h>
 #include "SLES/OpenSLES_Android.h"
 #include "opensles.h"

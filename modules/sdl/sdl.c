@@ -2,12 +2,11 @@
  * @file sdl/sdl.c  Simple DirectMedia Layer module for SDL v2.0
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <SDL2/SDL.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -117,7 +116,7 @@ static void event_handler(void *arg)
 				break;
 
 			case SDLK_q:
-				ui_input_key(baresip_uis(), 'q', NULL);
+				ui_input_key(data_uis(), 'q', NULL);
 				break;
 
 			default:
@@ -341,7 +340,7 @@ static int module_init(void)
 		return ENODEV;
 	}
 
-	err = vidisp_register(&vid, baresip_vidispl(),
+	err = vidisp_register(&vid, data_vidispl(),
 			      "sdl", alloc, NULL, display, hide);
 	if (err)
 		return err;

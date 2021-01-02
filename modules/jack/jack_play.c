@@ -2,11 +2,10 @@
  * @file jack_play.c  JACK audio driver -- player
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <jack/jack.h>
+#include "rsua-mod/modapi.h"
 #include "mod_jack.h"
 
 

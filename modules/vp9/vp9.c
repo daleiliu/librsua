@@ -2,11 +2,10 @@
  * @file vp9.c  VP9 video codec
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "vp9.h"
 
 
@@ -44,7 +43,7 @@ static struct vp9_vidcodec vp9 = {
 
 static int module_init(void)
 {
-	vidcodec_register(baresip_vidcodecl(), (struct vidcodec *)&vp9);
+	vidcodec_register(data_vidcodecl(), (struct vidcodec *)&vp9);
 	return 0;
 }
 

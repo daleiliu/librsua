@@ -2,6 +2,7 @@
  * @file amr.c Adaptive Multi-Rate (AMR) audio codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <stdlib.h>
 #ifdef AMR_NB
@@ -15,9 +16,7 @@
 #include <enc_if.h>
 #include <dec_if.h>
 #endif
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "amr.h"
 
 
@@ -349,10 +348,10 @@ static int module_init(void)
 	int err = 0;
 
 #ifdef AMR_WB
-	aucodec_register(baresip_aucodecl(), &amr_wb);
+	aucodec_register(data_aucodecl(), &amr_wb);
 #endif
 #ifdef AMR_NB
-	aucodec_register(baresip_aucodecl(), &amr_nb);
+	aucodec_register(data_aucodecl(), &amr_nb);
 #endif
 
 	return err;

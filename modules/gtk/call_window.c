@@ -2,12 +2,12 @@
  * @file gtk/call_window.c GTK+ call window
  *
  * Copyright (C) 2015 Charles E. Lehner
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <gtk/gtk.h>
 #include "gtk_mod.h"
+#include "rsua-mod/modapi.h"
 
 
 struct call_window {
@@ -218,7 +218,7 @@ static gboolean call_on_window_close(GtkWidget *widget, GdkEventAny *event,
 static gboolean call_on_key_press(GtkWidget *window, GdkEvent *ev,
 				  struct call_window *win)
 {
-	struct config *cfg = conf_config();
+	struct config *cfg = data_config();
 	gchar key = ev->key.string[0];
 	char wavfile[32];
 	(void)window;
@@ -238,7 +238,7 @@ static gboolean call_on_key_press(GtkWidget *window, GdkEvent *ev,
 	default:
 		return FALSE;
 	}
-	(void)play_file(&win->play_dtmf_tone, baresip_player(),
+	(void)play_file(&win->play_dtmf_tone, data_player(),
 		wavfile, -1, cfg->audio.alert_mod,
 		cfg->audio.alert_dev);
 	win->cur_key = key;

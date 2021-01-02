@@ -2,16 +2,15 @@
  * @file cairo.c  Cairo module
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <unistd.h>
 #include <pthread.h>
 #include <math.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <cairo/cairo.h>
+#include "rsua-mod/modapi.h"
 
 
 #if !defined (M_PI)
@@ -267,7 +266,7 @@ static int alloc(struct vidsrc_st **stp, const struct vidsrc *vs,
 	if (!stp || !prm || !size || !frameh)
 		return EINVAL;
 
-	cfg = conf_config();
+	cfg = data_config();
 	if (!cfg)
 		return EINVAL;
 
@@ -332,7 +331,7 @@ static int alloc(struct vidsrc_st **stp, const struct vidsrc *vs,
 
 static int module_init(void)
 {
-	return vidsrc_register(&vidsrc, baresip_vidsrcl(),
+	return vidsrc_register(&vidsrc, data_vidsrcl(),
 			       "cairo", alloc, NULL);
 }
 

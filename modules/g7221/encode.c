@@ -2,11 +2,10 @@
  * @file g7221/encode.c G.722.1 Encode
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 #define G722_1_EXPOSE_INTERNAL_STRUCTURES
 

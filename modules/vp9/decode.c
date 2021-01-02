@@ -2,14 +2,13 @@
  * @file vp9/decode.c VP9 Decode
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <vpx/vpx_decoder.h>
 #include <vpx/vp8dx.h>
+#include "rsua-mod/modapi.h"
 #include "vp9.h"
 
 

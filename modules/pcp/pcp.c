@@ -2,10 +2,9 @@
  * @file pcp.c Port Control Protocol for Media NAT-traversal
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rew.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "pcp.h"
 
 
@@ -353,7 +352,7 @@ static int module_init(void)
 		err = 0;
 	}
 
-	mnat_register(baresip_mnatl(), &mnat_pcp);
+	mnat_register(data_mnatl(), &mnat_pcp);
 
 	return 0;
 }

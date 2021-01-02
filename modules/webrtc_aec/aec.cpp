@@ -2,14 +2,13 @@
  * @file aec.cpp  WebRTC Acoustic Echo Cancellation (AEC)
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #ifdef HAVE_PTHREAD
 #include <pthread.h>
 #endif
+#include "rsua-mod/modapi.h"
 #include "modules/audio_processing/aec/echo_cancellation.h"
 #include "aec.h"
 
@@ -172,7 +171,7 @@ static struct aufilt webrtc_aec = {
 
 static int module_init(void)
 {
-	aufilt_register(baresip_aufiltl(), &webrtc_aec);
+	aufilt_register(data_aufiltl(), &webrtc_aec);
 	return 0;
 }
 

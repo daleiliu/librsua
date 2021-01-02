@@ -2,12 +2,11 @@
  * @file rst.c MP3/ICY HTTP AV Source
  *
  * Copyright (C) 2011 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "rst.h"
 
 
@@ -308,7 +307,7 @@ static int rst_connect(struct rst *rst)
 		}
 	}
 	else {
-		err = dnsc_query(&rst->dnsq, net_dnsc(baresip_network()),
+		err = dnsc_query(&rst->dnsq, net_dnsc(data_network()),
 				 rst->host, DNS_TYPE_A,
 				 DNS_CLASS_IN, true, dns_handler, rst);
 		if (err) {

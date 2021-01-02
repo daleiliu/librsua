@@ -3,12 +3,12 @@
  *
  * Copyright (C) 2010 Creytiv.com
  * Copyright (C) 2019 Hessischer Rundfunk
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <fdk-aac/FDK_audio.h>
 #include <fdk-aac/aacenc_lib.h>
+#include "rsua-mod/modapi.h"
 #include "aac.h"
 
 
@@ -297,7 +297,7 @@ static int module_init(void)
 
 	debug("aac: fmtp=\"%s\"\n", fmtp_local);
 
-	aucodec_register(baresip_aucodecl(), &aac);
+	aucodec_register(data_aucodecl(), &aac);
 
 	return 0;
 }

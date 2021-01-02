@@ -2,11 +2,10 @@
  * @file codec2.c  CODEC2 audio codec
  *
  * Copyright (C) 2015 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <codec2/codec2.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -193,7 +192,7 @@ static int module_init(void)
 
 	info("codec2: using mode %d\n", codec2_mode);
 
-	aucodec_register(baresip_aucodecl(), &codec2);
+	aucodec_register(data_aucodecl(), &codec2);
 
 	return 0;
 }

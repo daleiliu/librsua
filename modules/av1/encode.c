@@ -2,15 +2,14 @@
  * @file av1/encode.c AV1 Encode
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <aom/aom.h>
 #include <aom/aom_encoder.h>
 #include <aom/aomcx.h>
+#include "rsua-mod/modapi.h"
 #include "av1.h"
 
 

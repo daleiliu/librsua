@@ -3,14 +3,13 @@
  *
  * Author: Doug Blewett
  * Review: Alfred E. Heggestad
+ * Copyright (C) 2021 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <string.h>
 #include <png.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "png_vf.h"
 
 

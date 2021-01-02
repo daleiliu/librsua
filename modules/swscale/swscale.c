@@ -2,11 +2,10 @@
  * @file swscale.c  Video filter for scaling and pixel conversion
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <libswscale/swscale.h>
+#include "rsua-mod/modapi.h"
 
 
 struct swscale_enc {
@@ -177,7 +176,7 @@ static struct vidfilt vf_swscale = {
 
 static int module_init(void)
 {
-	vidfilt_register(baresip_vidfiltl(), &vf_swscale);
+	vidfilt_register(data_vidfiltl(), &vf_swscale);
 	return 0;
 }
 

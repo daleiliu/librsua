@@ -2,11 +2,11 @@
  * @file uri_entry.c GTK+ URI entry combo box
  *
  * Copyright (C) 2015 Charles E. Lehner
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <gtk/gtk.h>
+#include "rsua-mod/modapi.h"
 #include "gtk_mod.h"
 
 
@@ -19,7 +19,7 @@
  */
 GtkWidget *uri_combo_box_new(void)
 {
-	struct contacts *contacts = baresip_contacts();
+	struct contacts *contacts = data_contacts();
 	struct le *le;
 	GtkEntry *uri_entry;
 	GtkWidget *uri_combobox;

@@ -3,11 +3,10 @@
  *
  * Copyright (C) 2010 Creytiv.com
  * Copyright (C) 2013 Andreas Shimokawa <andi@fischlustig.de>
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <directfb.h>
+#include "rsua-mod/modapi.h"
 
 
 struct vidisp_st {
@@ -161,7 +160,7 @@ static int module_init(void)
 		return (int) ret;
 	}
 
-	err = vidisp_register(&vid, baresip_vidispl(),
+	err = vidisp_register(&vid, data_vidispl(),
 			      "directfb", alloc, NULL, display, hide);
 	if (err)
 		return err;

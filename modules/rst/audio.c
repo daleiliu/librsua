@@ -2,6 +2,7 @@
  * @file rst/audio.c MP3/ICY HTTP Audio Source
  *
  * Copyright (C) 2011 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
@@ -9,10 +10,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <mpg123.h>
+#include "rsua-mod/modapi.h"
 #include "rst.h"
 
 
@@ -285,7 +284,7 @@ int rst_audio_init(void)
 		return ENODEV;
 	}
 
-	return ausrc_register(&ausrc, baresip_ausrcl(), "rst", alloc_handler);
+	return ausrc_register(&ausrc, data_ausrcl(), "rst", alloc_handler);
 }
 
 

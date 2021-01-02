@@ -2,10 +2,10 @@
  * @file av1.c AV1 Video Codec
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
+
 #include "av1.h"
 
 
@@ -29,7 +29,7 @@ static struct vidcodec av1 = {
 
 static int module_init(void)
 {
-	vidcodec_register(baresip_vidcodecl(), &av1);
+	vidcodec_register(data_vidcodecl(), &av1);
 
 	return 0;
 }

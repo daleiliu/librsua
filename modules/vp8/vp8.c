@@ -2,10 +2,9 @@
  * @file vp8.c VP8 Video Codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "vp8.h"
 
 
@@ -40,7 +39,7 @@ static struct vp8_vidcodec vp8 = {
 
 static int module_init(void)
 {
-	vidcodec_register(baresip_vidcodecl(), (struct vidcodec *)&vp8);
+	vidcodec_register(data_vidcodecl(), (struct vidcodec *)&vp8);
 
 	return 0;
 }

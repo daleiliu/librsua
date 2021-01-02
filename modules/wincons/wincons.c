@@ -2,11 +2,11 @@
  * @file wincons.c  Windows console input
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <winsock2.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -64,7 +64,7 @@ static void report_key(struct ui_st *ui, char key)
 	static struct re_printf pf_stderr = {print_handler, NULL};
 	(void)ui;
 
-	ui_input_key(baresip_uis(), key, &pf_stderr);
+	ui_input_key(data_uis(), key, &pf_stderr);
 }
 
 
@@ -194,7 +194,7 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	ui_register(baresip_uis(), &ui_wincons);
+	ui_register(data_uis(), &ui_wincons);
 
 	return 0;
 }

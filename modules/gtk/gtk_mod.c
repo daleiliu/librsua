@@ -3,14 +3,13 @@
  *
  * Copyright (C) 2015 Charles E. Lehner
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
+#include "rsua-mod/modapi.h"
 #include "gtk_mod.h"
 
 #ifdef USE_LIBNOTIFY
@@ -137,7 +136,7 @@ static void menu_on_dial_contact(GtkMenuItem *menuItem, gpointer arg)
 
 static void init_contacts_menu(struct gtk_mod *mod)
 {
-	struct contacts *contacts = baresip_contacts();
+	struct contacts *contacts = data_contacts();
 	struct le *le;
 	GtkWidget *item;
 	GtkMenuShell *contacts_menu = GTK_MENU_SHELL(mod->contacts_menu);
@@ -1025,10 +1024,10 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	aufilt_register(baresip_aufiltl(), &vumeter);
+	aufilt_register(data_aufiltl(), &vumeter);
 
 #ifdef USE_NOTIFICATIONS
-	err = message_listen(baresip_message(),
+	err = message_listen(data_message(),
 			     message_handler, &mod_obj);
 	if (err) {
 		warning("gtk: message_init failed (%m)\n", err);
@@ -1036,7 +1035,7 @@ static int module_init(void)
 	}
 #endif
 
-	err = cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	err = cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 	if (err)
 		return err;
 
@@ -1052,7 +1051,7 @@ static int module_init(void)
 
 static int module_close(void)
 {
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 	if (mod_obj.run) {
 		gdk_threads_enter();
 		gtk_main_quit();
@@ -1062,7 +1061,7 @@ static int module_close(void)
 		pthread_join(mod_obj.thread, NULL);
 	mod_obj.mq = mem_deref(mod_obj.mq);
 	aufilt_unregister(&vumeter);
-	message_unlisten(baresip_message(), message_handler);
+	message_unlisten(data_message(), message_handler);
 
 #ifdef USE_LIBNOTIFY
 	if (notify_is_initted())

@@ -2,9 +2,9 @@
  * @file isac.c iSAC audio codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "isac.h"
 
 
@@ -217,7 +217,7 @@ static int module_init(void)
 	unsigned i;
 
 	for (i=0; i<ARRAY_SIZE(isacv); i++)
-		aucodec_register(baresip_aucodecl(), &isacv[i]);
+		aucodec_register(data_aucodecl(), &isacv[i]);
 
 	return 0;
 }

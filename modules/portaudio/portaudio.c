@@ -2,13 +2,12 @@
  * @file portaudio.c  Portaudio sound driver
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <stdlib.h>
 #include <string.h>
 #include <portaudio.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -324,11 +323,11 @@ static int pa_init(void)
 	}
 
 	if (paNoDevice != Pa_GetDefaultInputDevice())
-		err |= ausrc_register(&ausrc, baresip_ausrcl(),
+		err |= ausrc_register(&ausrc, data_ausrcl(),
 				      "portaudio", src_alloc);
 
 	if (paNoDevice != Pa_GetDefaultOutputDevice())
-		err |= auplay_register(&auplay, baresip_auplayl(),
+		err |= auplay_register(&auplay, data_auplayl(),
 				       "portaudio", play_alloc);
 
 	return err;

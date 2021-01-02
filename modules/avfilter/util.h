@@ -1,7 +1,7 @@
 /**
  * @file util.h  Video filter using libavfilter -- utility functions
  *
- * Copyright (C) 2020 Mikhail Kurkov
+ * Copyright (C) 2021 Mikhail Kurkov
  */
 
 

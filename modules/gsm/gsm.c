@@ -2,11 +2,10 @@
  * @file gsm.c  GSM Audio Codec
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <gsm.h> /* please report if you have problems finding this file */
-#include <re.h>
-#include <rem_au.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -177,7 +176,7 @@ static int module_init(void)
 {
 	debug("gsm: GSM v%u.%u.%u\n", GSM_MAJOR, GSM_MINOR, GSM_PATCHLEVEL);
 
-	aucodec_register(baresip_aucodecl(), &ac_gsm);
+	aucodec_register(data_aucodecl(), &ac_gsm);
 	return 0;
 }
 

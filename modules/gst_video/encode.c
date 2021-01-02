@@ -4,6 +4,7 @@
  * Copyright (C) 2010 - 2013 Creytiv.com
  * Copyright (C) 2014 Fadeev Alexander
  * Copyright (C) 2015 Thomas Strobel
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #define __USE_POSIX199309
@@ -13,14 +14,12 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <gst/gst.h>
 #include <gst/video/video.h>
 #include <gst/app/gstappsrc.h>
 #include <gst/app/gstappsink.h>
 #include "gst_video.h"
+#include "rsua-mod/modapi.h"
 
 
 struct videnc_state {

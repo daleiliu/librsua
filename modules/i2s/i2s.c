@@ -2,15 +2,14 @@
  * @file i2s.c freeRTOS I2S audio driver module
  *
  * Copyright (C) 2019 cspiel.at
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <sys/types.h>
 #include <sys/time.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "freertos/FreeRTOS.h"
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 #include "driver/i2s.h"
 #include "i2s.h"
@@ -39,9 +38,9 @@ static int i2s_init(void)
 {
 	int err;
 
-	err  = ausrc_register(&ausrc, baresip_ausrcl(),
+	err  = ausrc_register(&ausrc, data_ausrcl(),
 			      "i2s", i2s_src_alloc);
-	err |= auplay_register(&auplay, baresip_auplayl(),
+	err |= auplay_register(&auplay, data_auplayl(),
 			       "i2s", i2s_play_alloc);
 
 

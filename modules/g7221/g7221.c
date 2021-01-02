@@ -2,10 +2,10 @@
  * @file g7221.c G.722.1 Audio Codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "g7221.h"
 
 
@@ -29,7 +29,7 @@ static struct g7221_aucodec g7221 = {
 
 static int module_init(void)
 {
-	aucodec_register(baresip_aucodecl(), (struct aucodec *)&g7221);
+	aucodec_register(data_aucodecl(), (struct aucodec *)&g7221);
 
 	return 0;
 }

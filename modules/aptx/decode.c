@@ -2,13 +2,12 @@
  * @file aptx/decode.c aptX Decoder
  *
  * Copyright (C) 2019 Hessischer Rundfunk
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <stdlib.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <openaptx.h>
+#include "rsua-mod/modapi.h"
 #include "aptx.h"
 
 struct audec_state {

@@ -2,15 +2,14 @@
  * @file rst/video.c MP3/ICY HTTP Video Source
  *
  * Copyright (C) 2011 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _BSD_SOURCE 1
 #include <pthread.h>
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <cairo/cairo.h>
+#include "rsua-mod/modapi.h"
 #include "rst.h"
 
 
@@ -273,7 +272,7 @@ static int alloc_handler(struct vidsrc_st **stp, const struct vidsrc *vs,
 
 int rst_video_init(void)
 {
-	return vidsrc_register(&vidsrc, baresip_vidsrcl(),
+	return vidsrc_register(&vidsrc, data_vidsrcl(),
 			       "rst", alloc_handler, NULL);
 }
 

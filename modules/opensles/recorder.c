@@ -2,10 +2,9 @@
  * @file opensles/recorder.c  OpenSLES audio driver -- recording
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include <string.h>
 #include <SLES/OpenSLES.h>
 #include "SLES/OpenSLES_Android.h"

@@ -2,9 +2,9 @@
  * @file opensles.c  OpenSLES audio driver
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include <SLES/OpenSLES.h>
 #include "SLES/OpenSLES_Android.h"
 #include "opensles.h"
@@ -47,9 +47,9 @@ static int module_init(void)
 	if (SL_RESULT_SUCCESS != r)
 		return ENODEV;
 
-	err  = auplay_register(&auplay, baresip_auplayl(),
+	err  = auplay_register(&auplay, data_auplayl(),
 			       "opensles", opensles_player_alloc);
-	err |= ausrc_register(&ausrc, baresip_ausrcl(),
+	err |= ausrc_register(&ausrc, data_ausrcl(),
 			      "opensles", opensles_recorder_alloc);
 
 	return err;

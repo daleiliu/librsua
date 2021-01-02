@@ -1,15 +1,14 @@
 /**
  * @file util.c	 Video filter using libavfilter -- utility functions
  *
- * Copyright (C) 2020 Mikhail Kurkov
+ * Copyright (C) 2021 Mikhail Kurkov
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <stdlib.h>
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <libavutil/frame.h>
+#include "rsua-mod/modapi.h"
 #include "util.h"
 
 

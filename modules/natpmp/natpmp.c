@@ -4,7 +4,7 @@
  * Copyright (C) 2010 Creytiv.com
  * Copyright (C) 2020 Dalei Liu
  */
-#include "rsua_module.h"
+#include "rsua-mod/modapi.h"
 #include "libnatpmp.h"
 
 

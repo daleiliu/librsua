@@ -2,15 +2,14 @@
  * @file encode.cpp  WebRTC Acoustic Echo Cancellation (AEC) -- Encode
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #ifdef HAVE_PTHREAD
 #include <pthread.h>
 #endif
+#include "rsua-mod/modapi.h"
 #include "aec.h"
 
 

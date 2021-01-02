@@ -2,11 +2,10 @@
  * @file avcapture.m AVFoundation video capture
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <AVFoundation/AVFoundation.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -373,7 +372,7 @@ static int module_init(void)
 
 	pool = [NSAutoreleasePool new];
 
-	err = vidsrc_register(&vidsrc, baresip_vidsrcl(),
+	err = vidsrc_register(&vidsrc, data_vidsrcl(),
 			      "avcapture", alloc, update);
 	if (err)
 		goto out;

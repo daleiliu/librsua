@@ -3,13 +3,12 @@
  *
  * Copyright (C) 2010 Creytiv.com
  * Copyright (C) 2014 Fadeev Alexander
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <gst/gst.h>
 #include "gst_video.h"
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -40,7 +39,7 @@ static int module_init(void)
 {
 	gst_init(NULL, NULL);
 
-	vidcodec_register(baresip_vidcodecl(), &h264);
+	vidcodec_register(data_vidcodecl(), &h264);
 
 	info("gst_video: using gstreamer (%s)\n", gst_version_string());
 

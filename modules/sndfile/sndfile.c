@@ -2,12 +2,11 @@
  * @file sndfile.c  Audio dumper using libsndfile
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <sndfile.h>
 #include <time.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -227,7 +226,7 @@ static struct aufilt sndfile = {
 
 static int module_init(void)
 {
-	aufilt_register(baresip_aufiltl(), &sndfile);
+	aufilt_register(data_aufiltl(), &sndfile);
 
 	conf_get_str(conf_cur(), "snd_path", file_path, sizeof(file_path));
 

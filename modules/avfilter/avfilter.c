@@ -1,7 +1,8 @@
 /**
  * @file avfilter.c	 Video filter using libavfilter
  *
- * Copyright (C) 2020 Mikhail Kurkov
+ * Copyright (C) 2021 Mikhail Kurkov
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <string.h>
@@ -9,9 +10,7 @@
 #include <libavfilter/buffersink.h>
 #include <libavfilter/buffersrc.h>
 #include <libavutil/opt.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "avfilter.h"
 
 /**
@@ -144,8 +143,8 @@ static int module_init(void)
 	if (err)
 		return err;
 
-	vidfilt_register(baresip_vidfiltl(), &avfilter);
-	return cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	vidfilt_register(data_vidfiltl(), &avfilter);
+	return cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 }
 
 
@@ -153,7 +152,7 @@ static int module_close(void)
 {
 	lock = mem_deref(lock);
 	vidfilt_unregister(&avfilter);
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 	return 0;
 }
 

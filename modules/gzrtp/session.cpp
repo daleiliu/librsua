@@ -2,11 +2,11 @@
  * @file session.cpp  GNU ZRTP: Session class implementation
  *
  * Copyright (C) 2010 - 2017 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <stdint.h>
 
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 #include "session.h"
 

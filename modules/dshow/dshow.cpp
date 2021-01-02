@@ -3,14 +3,13 @@
  *
  * Copyright (C) 2010 Creytiv.com
  * Copyright (C) 2010 Dusan Stevanovic
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <stdio.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <commctrl.h>
 #include <dshow.h>
+#include "rsua-mod/modapi.h"
 
 #pragma comment(lib, "strmiids.lib")
 
@@ -605,7 +604,7 @@ static int module_init(void)
 	if (CoInitialize(NULL) != S_OK)
 		return ENODATA;
 
-	err = vidsrc_register(&vsrc, baresip_vidsrcl(),
+	err = vidsrc_register(&vsrc, data_vidsrcl(),
 			       "dshow", alloc, NULL);
 	if (err)
 		return err;

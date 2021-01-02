@@ -2,10 +2,10 @@
  * @file vp9/sdp.c VP9 SDP Functions
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "vp9.h"
 
 

@@ -2,9 +2,9 @@
  * @file zrtp.c ZRTP: Media Path Key Agreement for Unicast Secure RTP
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include <zrtp.h>
 
 #include <string.h>
@@ -690,20 +690,20 @@ static int module_init(void)
 		return ENOSYS;
 	}
 
-	menc_register(baresip_mencl(), &menc_zrtp);
+	menc_register(data_mencl(), &menc_zrtp);
 
 	debug("zrtp:  cache_file:  %s\n", zrtp_config.def_cache_path.buffer);
 	debug("       zid_file:    %s\n", zrtp_zid_path);
 	debug("       zid:         %w\n",
 	      zid, sizeof(zid));
 
-	return cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	return cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 }
 
 
 static int module_close(void)
 {
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 	menc_unregister(&menc_zrtp);
 
 	if (zrtp_global) {

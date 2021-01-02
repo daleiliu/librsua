@@ -2,15 +2,13 @@
  * @file gzrtp.cpp  GNU ZRTP: Media Path Key Agreement for Unicast Secure RTP
  *
  * Copyright (C) 2010 - 2017 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <stdint.h>
-
-#include <re.h>
-#include <baresip.h>
-
 #include <string.h>
-
 #include <libzrtpcpp/ZRtp.h>
+
+#include "rsua-mod/modapi.h"
 
 #include "session.h"
 #include "stream.h"
@@ -203,9 +201,9 @@ static int module_init(void)
 	if (!s_zrtp_config)
 		return ENOMEM;
 
-	menc_register(baresip_mencl(), &menc_zrtp);
+	menc_register(data_mencl(), &menc_zrtp);
 
-	return cmd_register(baresip_commands(), cmdv, ARRAY_SIZE(cmdv));
+	return cmd_register(data_commands(), cmdv, ARRAY_SIZE(cmdv));
 }
 
 
@@ -214,7 +212,7 @@ static int module_close(void)
 	delete s_zrtp_config;
 	s_zrtp_config = NULL;
 
-	cmd_unregister(baresip_commands(), cmdv);
+	cmd_unregister(data_commands(), cmdv);
 
 	menc_unregister(&menc_zrtp);
 

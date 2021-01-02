@@ -2,6 +2,7 @@
  * @file gst/gst.c  Gstreamer 1.0 playbin pipeline
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #define _DEFAULT_SOURCE 1
 #define _POSIX_C_SOURCE 199309L
@@ -10,9 +11,7 @@
 #include <time.h>
 #include <pthread.h>
 #include <gst/gst.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -469,7 +468,7 @@ static int mod_gst_init(void)
 
 	g_free(s);
 
-	return ausrc_register(&ausrc, baresip_ausrcl(), "gst", gst_alloc);
+	return ausrc_register(&ausrc, data_ausrcl(), "gst", gst_alloc);
 }
 
 

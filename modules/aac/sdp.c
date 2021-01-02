@@ -3,12 +3,12 @@
  *
  * Copyright (C) 2010 Creytiv.com
  * Copyright (C) 2019 Hessischer Rundfunk
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <strings.h>
-#include <re.h>
-#include <baresip.h>
 #include <fdk-aac/FDK_audio.h>
+#include "rsua-mod/modapi.h"
 #include "aac.h"
 
 

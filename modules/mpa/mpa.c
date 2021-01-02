@@ -2,12 +2,12 @@
  * @file mpa.c mpa Audio Codec
  *
  * Copyright (C) 2016 Symonics GmbH
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <ctype.h>
 #include <string.h>
+#include "rsua-mod/modapi.h"
 #include "mpa.h"
 #include <mpg123.h>
 
@@ -219,7 +219,7 @@ static int module_init(void)
 		return ENODEV;
 	}
 
-	aucodec_register(baresip_aucodecl(), &mpa);
+	aucodec_register(data_aucodecl(), &mpa);
 
 #ifdef DEBUG
 	info("MPA init with %s\n",mpa.fmtp);

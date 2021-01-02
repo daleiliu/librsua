@@ -2,10 +2,10 @@
  * @file aptx.c aptX Audio Codec
  *
  * Copyright (C) 2019 Hessischer Rundfunk
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "aptx.h"
 
 /**
@@ -46,7 +46,7 @@ static struct aucodec aptx = {
 
 static int module_init(void)
 {
-	aucodec_register(baresip_aucodecl(), &aptx);
+	aucodec_register(data_aucodecl(), &aptx);
 
 	return 0;
 }

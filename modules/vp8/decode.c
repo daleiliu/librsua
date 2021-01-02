@@ -2,14 +2,13 @@
  * @file vp8/decode.c VP8 Decode
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <string.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <vpx/vpx_decoder.h>
 #include <vpx/vp8dx.h>
+#include "rsua-mod/modapi.h"
 #include "vp8.h"
 
 

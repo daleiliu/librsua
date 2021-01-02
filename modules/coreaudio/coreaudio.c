@@ -2,11 +2,10 @@
  * @file coreaudio.c  Apple Coreaudio sound driver
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 #include <AudioToolbox/AudioToolbox.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "coreaudio.h"
 
 
@@ -189,9 +188,9 @@ static int module_init(void)
 {
 	int err;
 
-	err  = auplay_register(&auplay, baresip_auplayl(),
+	err  = auplay_register(&auplay, data_auplayl(),
 			       "coreaudio", coreaudio_player_alloc);
-	err |= ausrc_register(&ausrc, baresip_ausrcl(),
+	err |= ausrc_register(&ausrc, data_ausrcl(),
 			      "coreaudio", coreaudio_recorder_alloc);
 
 	if (err)

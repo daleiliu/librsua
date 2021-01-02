@@ -2,13 +2,13 @@
  * @file mpa/sdp.c mpa SDP Functions
  *
  * Copyright (C) 2016 Symonics GmbH
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
 #include <string.h>
 #include <twolame.h>
 #include <lame/lame.h>
+#include "rsua-mod/modapi.h"
 #include "mpa.h"
 
 

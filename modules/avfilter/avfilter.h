@@ -1,7 +1,7 @@
 /**
  * @file avfilter.h  Video filter using libavfilter -- internal API
  *
- * Copyright (C) 2020 Mikhail Kurkov
+ * Copyright (C) 2021 Mikhail Kurkov
  */
 
 /* Maximum filter length */

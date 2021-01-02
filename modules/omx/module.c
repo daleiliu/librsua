@@ -3,6 +3,7 @@
  *
  * Copyright (C) 2016 - 2017 Creytiv.com
  * Copyright (C) 2016 - 2017 Jonathan Sieber
+ * Copyright (C) 2021 Dalei Liu
  */
 
 
@@ -10,9 +11,7 @@
 
 #include <stdlib.h>
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 
 struct vidisp_st {
@@ -109,7 +108,7 @@ static int module_init(void)
 		return ENODEV;
 	}
 
-	return vidisp_register(&vid, baresip_vidispl(), "omx",
+	return vidisp_register(&vid, data_vidispl(), "omx",
 		omx_vidisp_alloc, NULL, omx_vidisp_display, NULL);
 }
 

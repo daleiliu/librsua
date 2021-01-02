@@ -2,13 +2,12 @@
  * @file ilbc.c  Internet Low Bit Rate Codec (iLBC) audio codec
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <iLBC_define.h>
 #include <iLBC_decode.h>
 #include <iLBC_encode.h>
+#include "rsua-mod/modapi.h"
 
 
 /**
@@ -354,7 +353,7 @@ static int module_init(void)
 	(void)re_snprintf(ilbc_fmtp, sizeof(ilbc_fmtp),
 			  "mode=%d", DEFAULT_MODE);
 
-	aucodec_register(baresip_aucodecl(), &ilbc);
+	aucodec_register(data_aucodecl(), &ilbc);
 	return 0;
 }
 

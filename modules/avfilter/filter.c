@@ -1,7 +1,8 @@
 /**
  * @file avfilter/filter.c	Video filter using libavfilter -- filtering
  *
- * Copyright (C) 2020 Mikhail Kurkov
+ * Copyright (C) 2021 Mikhail Kurkov
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <string.h>
@@ -9,9 +10,7 @@
 #include <libavfilter/buffersink.h>
 #include <libavfilter/buffersrc.h>
 #include <libavutil/opt.h>
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "avfilter.h"
 #include "util.h"
 

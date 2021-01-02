@@ -3,15 +3,14 @@
  *
  * Copyright (C) 2016 - 2017 Creytiv.com
  * Copyright (C) 2016 - 2017 Jonathan Sieber
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #define _POSIX_C_SOURCE 199309L
 
 #include "omx.h"
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 
 #include <stdio.h>
 #include <stdlib.h>

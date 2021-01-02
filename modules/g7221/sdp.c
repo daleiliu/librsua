@@ -2,10 +2,10 @@
  * @file g7221/sdp.c G.722.1 SDP Functions
  *
  * Copyright (C) 2010 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "g7221.h"
 
 

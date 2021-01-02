@@ -2,14 +2,13 @@
  * @file mpa/decode.c mpa Decode
  *
  * Copyright (C) 2016 Symonics GmbH
+ * Copyright (C) 2021 Dalei Liu
  */
 
-#include <re.h>
-#include <rem.h>
-#include <baresip.h>
 #include <mpg123.h>
 #include <speex/speex_resampler.h>
 #include <string.h>
+#include "rsua-mod/modapi.h"
 #include "mpa.h"
 
 struct audec_state {

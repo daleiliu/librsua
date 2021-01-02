@@ -2,11 +2,11 @@
  * @file subscribe.c MQTT client -- subscribe
  *
  * Copyright (C) 2017 Creytiv.com
+ * Copyright (C) 2021 Dalei Liu
  */
 
 #include <mosquitto.h>
-#include <re.h>
-#include <baresip.h>
+#include "rsua-mod/modapi.h"
 #include "mqtt.h"
 
 
@@ -78,7 +78,7 @@ static void handle_command(struct mqtt *mqtt, const struct pl *msg)
 		    oe_prm ? oe_prm->u.str : "");
 
 	/* Relay message to long commands */
-	err = cmd_process_long(baresip_commands(),
+	err = cmd_process_long(data_commands(),
 			       buf,
 			       str_len(buf),
 			       &pf, NULL);

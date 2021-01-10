@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Dalei Liu
+# Copyright (C) 2020-2021 Dalei Liu
 
 # Build librsua
 
@@ -52,12 +52,21 @@ LDFLAGS += -Wl,--whole-archive $(LIBRE_A) $(LIBREM_A) \
 	-Wl,--no-whole-archive \
 
 OBJS := $(addprefix $(BUILD)/, $(SRCS:.c=.o))
-TARGET_SONAME := librsua.so
-TARGET := $(BUILD)/$(TARGET_SONAME)
+TARGET_LIBNAME := librsua.so
+TARGET_SONAME := librsua.so.$(INTERFACE_VERSION)
+TARGET_FILENAME := $(TARGET_LIBNAME).$(VERSION)
+TARGET := $(BUILD)/$(TARGET_FILENAME)
 
-all: $(TARGET) $(MODAPI_INCLUDE)
+all: $(BUILD)/$(TARGET_FILENAME) $(BUILD)/$(TARGET_SONAME) \
+	$(BUILD)/$(TARGET_LIBNAME) $(MODAPI_INCLUDE)
 
-$(TARGET): $(OBJS) $(LIBS)
+$(BUILD)/$(TARGET_LIBNAME): $(BUILD)/$(TARGET_SONAME)
+	cd $(BUILD); ln -sf $(TARGET_SONAME) $(TARGET_LIBNAME)
+
+$(BUILD)/$(TARGET_SONAME): $(BUILD)/$(TARGET_FILENAME)
+	cd $(BUILD); ln -sf $(TARGET_FILENAME) $(TARGET_SONAME)
+
+$(BUILD)/$(TARGET_FILENAME): $(OBJS) $(LIBS)
 	$(CC) -shared -Wl,-soname,$(TARGET_SONAME) -o $@ \
 	  $(LIBRE_A) $(LIBREM_A) $(OBJS) $(LDFLAGS)
 
@@ -65,15 +74,15 @@ $(LIBRE_A):
 	make -C $(LIBRE_DIR)
 
 $(LIBRE_INCLUDE):
-	mkdir -p $(dir $@)
-	ln -sf $(LIBRE_DIR)/include $@
+	mkdir -p $@
+	rsync -a $(LIBRE_DIR)/include/* $@/
 
 $(LIBREM_A):
 	make -C $(LIBREM_DIR)
 
 $(LIBREM_INCLUDE):
-	mkdir -p $(dir $@)
-	ln -sf $(LIBREM_DIR)/include $@
+	mkdir -p $@
+	rsync -a $(LIBREM_DIR)/include/* $@/
 
 $(BUILD)/%.o: %.c $(HDRS) | \
   $(BUILD) $(LIBRE_INCLUDE) $(LIBREM_INCLUDE) $(MODAPI_INCLUDE)
@@ -83,5 +92,5 @@ $(MODAPI_INCLUDE):
 	mkdir -p $(MODAPI_INCLUDE)
 	cd $(MODAPI_INCLUDE); \
 	  for modh in $(MODAPI_HDRS); do \
-	    ln -sf ../../../$$modh .; \
+	    rsync -a ../../../$$modh .; \
 	  done

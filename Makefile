@@ -5,7 +5,7 @@ LIBREM_MK := rem/Makefile
 
 all: $(LIBRE_MK) $(LIBREM_MK)
 	make -C src
-	make -C modules
+	make -C modules modbins
 	make -C apps/replica
 
 $(LIBRE_MK) $(LIBREM_MK):

@@ -10,3 +10,6 @@ all: $(LIBRE_MK) $(LIBREM_MK)
 
 $(LIBRE_MK) $(LIBREM_MK):
 	git submodule update --init
+
+deb:
+	dpkg-buildpackage

@@ -1,0 +1,4 @@
+#! /usr/bin/dh-exec
+include/* usr/include
+src/build/include/* usr/include
+src/build/x86_64/librsua.so usr/lib/${DEB_HOST_MULTIARCH}/

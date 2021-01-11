@@ -1,34 +1,20 @@
-Source: baresip
-Section: comm
+Source: librsua
 Priority: optional
-Maintainer: Alfred E. Heggestad <aeh@db.org>
-Standards-Version: 3.9.5
-Build-Depends: debhelper (>= 9.20120311), librem-dev (>= 0.6.0), libre-dev (>= 0.6.0), libasound2-dev, libavformat-dev, libavdevice-dev, libswscale-dev
-Homepage: http://www.creytiv.com/
-
-Package: baresip
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, librem (>= 0.6.0), libre (>= 0.6.0)
-Description: Modular SIP User-Agent with audio and video support
- Design goals:
- .
-  Minimalistic and modular VoIP client
-  SIP, SDP, RTP/RTCP, STUN/TURN/ICE
-  IPv4 and IPv6 support
-  RFC compliant
-  Robust, fast, low footprint
-  Portable C89 and C99 source code
-
-Package: libbaresip
-Architecture: any
+Maintainer: Dalei Liu <daleiliu@gmail.com>
+Build-Depends: debhelper (>= 11)
+Standards-Version: 4.1.3
 Section: libs
-Depends: ${shlibs:Depends}, ${misc:Depends}, librem (>= 0.6.0), libre (>= 0.6.0)
-Description: Baresip library
+Homepage: https://github.com/daleiliu/librsua
 
-Package: libbaresip-dev
-Architecture: any
+Package: librsua-dev
 Section: libdevel
-Depends: libbaresip (= ${binary:Version}), ${misc:Depends}
-Description: Baresip library development files
- See https://github.com/baresip/baresip/wiki/Using-baresip-as-a-library
- for an example.
+Architecture: any
+Multi-Arch: same
+Depends: librsua (= ${binary:Version}), ${misc:Depends}
+Description: re/rem/baresip-based SIP/media user-agent library
+
+Package: librsua
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: re/rem/baresip-based SIP/media user-agent library

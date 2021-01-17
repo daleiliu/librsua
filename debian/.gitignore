@@ -1,0 +1,7 @@
+.debhelper
+*-stamp
+files
+*.substvars
+librsua
+librsua-apps
+librsua-dev

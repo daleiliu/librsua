@@ -11,5 +11,8 @@ all: $(LIBRE_MK) $(LIBREM_MK)
 $(LIBRE_MK) $(LIBREM_MK):
 	git submodule update --init
 
-deb:
-	dpkg-buildpackage
+deb: $(LIBRE_MK) $(LIBREM_MK)
+	dpkg-buildpackage -b
+
+deb-clean:
+	cd debian; while read fn; do echo $$fn; rm -rf $$fn; done < .gitignore

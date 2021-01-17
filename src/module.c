@@ -2,12 +2,15 @@
  * @file module.c Module loading
  *
  * Copyright (C) 2010 Creytiv.com
- * Copyright (C) 2020 Dalei Liu
+ * Copyright (C) 2020 - 2021 Dalei Liu
  */
 
 #include "module.h"
 #include "data.h"
 #include "log.h"
+
+
+static const char *default_path = RSUA_SYSTEM_PATH "/rsua-mod";
 
 
 /*
@@ -139,7 +142,14 @@ static int module_app_handler(const struct pl *val, void *arg)
 }
 
 
-int module_init(const struct conf *conf)
+/**
+ * Load modules based on config file
+ *
+ * @param conf Configuration object
+ *
+ * @return 0 if success, otherwise errorcode
+ */
+int module_load_fromconf(const struct conf *conf)
 {
 	struct pl path;
 	int err;
@@ -148,7 +158,7 @@ int module_init(const struct conf *conf)
 		return EINVAL;
 
 	if (conf_get(conf, "module_path", &path))
-		pl_set_str(&path, ".");
+		pl_set_str(&path, default_path);
 
 	err = conf_apply(conf, "module", module_handler, &path);
 	if (err)
@@ -163,6 +173,15 @@ int module_init(const struct conf *conf)
 		return err;
 
 	return 0;
+}
+
+
+/**
+ * Set default module directory
+ */
+void module_set_path(const char *path)
+{
+	default_path = path;
 }
 
 
@@ -189,7 +208,7 @@ void module_app_unload(void)
 
 
 /**
- * Pre-load a module from the current working directory
+ * Pre-load a module from the default module directory
  *
  * @param module Module name including extension
  *
@@ -202,7 +221,7 @@ int module_preload(const char *module)
 	if (!module)
 		return EINVAL;
 
-	pl_set_str(&path, ".");
+	pl_set_str(&path, default_path);
 	pl_set_str(&name, module);
 
 	return load_module(NULL, &path, &name);

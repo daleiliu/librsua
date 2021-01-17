@@ -2,7 +2,7 @@
  * @file conf.c  Configuration utils and Core Configuration
  *
  * Copyright (C) 2010 Creytiv.com
- * Copyright (C) 2020 Dalei Liu
+ * Copyright (C) 2020 - 2021 Dalei Liu
  */
 
 #define _DEFAULT_SOURCE 1
@@ -417,7 +417,7 @@ int conf_modules(void)
 {
 	int err;
 
-	err = module_init(conf_obj);
+	err = module_load_fromconf(conf_obj);
 	if (err) {
 		warning("conf: configure module parse error (%m)\n", err);
 		goto out;
@@ -1073,11 +1073,8 @@ static const char *detect_module_path(bool *valid)
 	static const char * const pathv[] = {
 #if defined (MOD_PATH)
 		MOD_PATH,
-#elif defined (PREFIX)
-		"" PREFIX "/lib/baresip/modules",
 #else
-		"/usr/local/lib/baresip/modules",
-		"/usr/lib/baresip/modules",
+		RSUA_SYSTEM_PATH,
 #endif
 	};
 	const char *current = pathv[0];

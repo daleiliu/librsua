@@ -1,5 +1,5 @@
 # Copyright (C) 2010 Creytiv.com
-# Copyright (C) 2020-2021 Dalei Liu
+# Copyright (C) 2020 - 2021 Dalei Liu
 
 # Common Makefile helpers
 # based on re/mk/re.mk
@@ -51,9 +51,14 @@ endif
 VERSION := $(shell cat $(RSUA_TOPDIR)/mk/version.txt)
 INTERFACE_VERSION := $(shell cat $(RSUA_TOPDIR)/mk/version.txt | cut -d. -f1,2)
 
+RSUA_MULTIARCH_NAME := $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
 ifneq ($(RELEASE),)
 CFLAGS  += -DRELEASE
 OPT_SPEED=1
+RSUA_SYSTEM_PATH := /usr/lib/$(RSUA_MULTIARCH_NAME)
+else
+RSUA_SYSTEM_PATH := /usr/local/lib/$(RSUA_MULTIARCH_NAME)
 endif
 
 
@@ -411,7 +416,8 @@ $(warning Could not detect ARCH)
 endif
 
 
-CFLAGS	+= -DARCH=\"$(ARCH)\"
+CFLAGS	+= -DARCH=\"$(ARCH)\" -DRSUA_SYSTEM_PATH=\"$(RSUA_SYSTEM_PATH)\"
+
 
 ifeq ($(ARCH),mipsel)
 CFLAGS += -march=mips32

@@ -3,7 +3,7 @@
  * @brief Modules
  *
  * Copyright (C) 2010 Creytiv.com
- * Copyright (C) 2020 Dalei Liu
+ * Copyright (C) 2020 - 2021 Dalei Liu
  */
 
 #ifndef UAMODULE_H_INCLUDED
@@ -19,7 +19,9 @@ void module_app_unload(void);
 
 #ifndef UAMODAPI_USE		/* Internal API */
 
-int module_init(const struct conf *conf);
+int module_load_fromconf(const struct conf *conf);
+
+void module_set_path(const char *path);
 
 #endif /* ifndef UAMODAPI_USE */
 

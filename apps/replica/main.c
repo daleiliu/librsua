@@ -3,7 +3,7 @@
  * @brief replicate baresip functions
  *
  * Copyright (C) 2010 - 2015 Creytiv.com
- * Copyright (C) 2020 Dalei Liu
+ * Copyright (C) 2020 - 2021 Dalei Liu
  */
 
 #include <rsua.h>
@@ -34,6 +34,8 @@ static void usage(void)
 			 "\t-d               Daemon\n"
 			 "\t-e <commands>    Execute commands (repeat)\n"
 			 "\t-f <path>        Config path\n"
+			 "\t-M <path>        Default module path\n"
+			 "\t\t\t(use \"-M .\" to mimic original baresip)\n"
 			 "\t-m <module>      Pre-load modules (repeat)\n"
 			 "\t-p <path>        Audio files\n"
 			 "\t-h -?            Help\n"
@@ -54,8 +56,9 @@ int main(int argc, char *argv[])
 	 */
 	setbuf(stdout, NULL);
 
-	fprintf(stdout, "baresip-replica v%s \n"
-		"Copyright (C) 2020 Dalei Liu\n"
+	fprintf(stdout, "baresip-replica v%s "
+		"Copyright (C) 2020 - 2021 Dalei Liu\n"
+		"-- based on baresip "
 		"Copyright (C) 2010 - 2020 Alfred E. Heggestad et al.\n",
 		RSUA_VERSION);
 
@@ -66,7 +69,7 @@ int main(int argc, char *argv[])
 	opts.handle_signal = 1;
 
 	for (;;) {
-		const int c = getopt(argc, argv, "46de:f:p:hu:n:vst:m:");
+		const int c = getopt(argc, argv, "46de:f:p:hu:n:vst:m:M:");
 		if (0 > c)
 			break;
 
@@ -103,6 +106,10 @@ int main(int argc, char *argv[])
 
 		case 'f':
 			opts.conf_path = optarg;
+			break;
+
+		case 'M':
+			opts.module_path = optarg;
 			break;
 
 		case 'm':

@@ -3,7 +3,7 @@
  * @brief librsua initialization and configuration functions
  *
  * Copyright (C) 2010 - 2016 Creytiv.com
- * Copyright (C) 2020 Dalei Liu
+ * Copyright (C) 2020 - 2021 Dalei Liu
  */
 
 #include "rsua.h"
@@ -31,6 +31,9 @@ int rsua_init_fromopts(struct rsua_opts *opts)
 
 	if (opts->conf_path)
 		conf_path_set(opts->conf_path);
+
+	if (opts->module_path)
+		module_set_path(opts->module_path);
 
 	if (opts->use_conf) {
 		err = conf_configure();

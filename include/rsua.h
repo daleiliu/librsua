@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 Dalei Liu */
+/* Copyright (C) 2020 - 2021 Dalei Liu */
 
 /**
  * @file rsua.h
@@ -41,6 +41,7 @@ struct rsua_opts {
 	char *execmdv[16];
 	int use_conf;
 	char *conf_path;
+	char *module_path;
 	int modc;
 	char *modv[16];
 	char *audio_path;

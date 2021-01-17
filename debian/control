@@ -18,3 +18,10 @@ Architecture: any
 Multi-Arch: same
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: re/rem/baresip-based SIP/media user-agent library
+
+Package: librsua-apps
+Section: utils
+Architecture: any
+Multi-Arch: same
+Depends: librsua (= ${binary:Version}), ${misc:Depends}
+Description: Simple applications using librsua

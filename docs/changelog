@@ -1,0 +1,15 @@
+2021-01-17  Dalei Liu  <daleiliu@gmail.com>
+
+	Release version 1.0.0-alpha1
+
+	Added
+	* Fork from baresip/baresip 1.0.0+20201224.4e0899a
+	* Fork from baresip/re 1.1.0+20201224.432fa6a9 and add it as a
+	  submodule
+	* Fork from baresip/rem 0.6.0+20201224.ddeb70da and add it as a
+	  submodule
+	* Refactor baresip code into a library with a simple API with built-in
+	  re/rem
+	* Improve build process
+	* Allow out-of-tree module development
+	* Update debian package build process

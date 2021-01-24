@@ -1,0 +1,49 @@
+#!/bin/sh
+# Copyright (C) 2021 Dalei Liu
+
+usage()
+{
+	cat <<EOF
+Usage: $0 \$new_version
+Example: mk/update-version v1.0.0-alpha.1
+EOF
+}
+
+while [ "$1" != "" ]; do
+        case $1 in
+        -h)
+                usage
+                exit 0
+                ;;
+
+        *)
+                break
+        esac
+        shift
+done
+
+if [ "$#" -lt "1" ]; then
+        usage
+        exit 1
+fi
+
+if [ ! -d mk ]; then
+	echo "Please run it from project top directory (TOPDIR)."
+        exit 1
+fi
+
+new_ver=$(echo $1 | sed 's/v//')
+new_pkg_ver=$(echo $new_ver | sed 's/-alpha./~alpha/;s/-beta./~beta/;s/-rc./~rc/')
+
+echo $new_ver > mk/version.txt
+
+clfile=debian/changelog
+tmpfile=$(mktemp)
+fullname="Dalei Liu"
+email="daleiliu@gmail.com"
+echo "librsua ($new_pkg_ver) unstable; urgency=medium\n\n"\
+"  * Release version $new_ver\n"\
+"  See docs/changelog for more information.\n\n"\
+" -- $fullname <$email>  $(date -R)\n" | \
+  cat - $clfile > $tmpfile
+mv $tmpfile $clfile

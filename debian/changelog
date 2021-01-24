@@ -1,5 +1,6 @@
 librsua (1.0.0~alpha1) unstable; urgency=medium
 
-  * Initial Release.
+  * Release initial version 1.0.0-alpha1.
+  See docs/changelog for more information.
 
  -- Dalei Liu <daleiliu@gmail.com>  Sun, 10 Jan 2021 12:25:10 -0800
